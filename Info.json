@@ -1,7 +1,7 @@
 ﻿{
   "AssemblyName": "WraithMods.dll",
   "Author": "WraithJT",
-  "DisplayName": "WraithMods",
+  "DisplayName": "Wraith Mods",
   "EntryMethod": "WraithMods.Main.Load",
   "GameVersion": "1.2.0",
   "HomePage": "",
@@ -9,5 +9,5 @@
   "ManagerVersion": "0.23.0",
   "Repository": "",
   "Requirements": [],
-  "Version": "0.0.1"
+  "Version": "0.0.8"
 }
