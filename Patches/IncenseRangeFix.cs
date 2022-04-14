@@ -29,13 +29,13 @@ namespace WraithMods.Patches
                     return;
                 }
 
-                var mindFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("0bd2c3ff0012e6b468497461448174c7");
-                Kingmaker.ResourceLinks.PrefabLink fogFx = mindFogArea.Fx;
+                var flameDancerPerformanceArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("0bd2c3ff0012e6b468497461448174c7");
+                Kingmaker.ResourceLinks.PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
 
-                Kingmaker.Utility.Feet fogIncrease = new(30);
+                Kingmaker.Utility.Feet incenseFogRangeIncrease = new(30);
                 var incenseFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("4aeb5ae7923dac74d91069f13a7f0a95");
-                incenseFogArea.Size = fogIncrease;
-                incenseFogArea.Fx = fogFx;
+                incenseFogArea.Size = incenseFogRangeIncrease;
+                incenseFogArea.Fx = incenseFogFx;
 
                 
             }
