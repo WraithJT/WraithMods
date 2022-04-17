@@ -1,20 +1,10 @@
-﻿using HarmonyLib;
-using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.UnitLogic.ActivatableAbilities;
-using Kingmaker.UnitLogic.Abilities.Blueprints;
-using Kingmaker.EntitySystem.Entities;
-using Kingmaker.UnitLogic.Abilities.Components.CasterCheckers;
-using Kingmaker.Blueprints.Classes.Selection;
-using Kingmaker.UnitLogic;
-using Kingmaker.Utility;
-using Kingmaker.Blueprints.Classes;
-using Kingmaker.Designers.EventConditionActionSystem.Conditions;
-using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.Classes;
-using System.Linq;
-using Kingmaker.Blueprints.Classes.Prerequisites;
+﻿using BlueprintCore.Blueprints.Configurators.Classes;
+using BlueprintCore.Utils;
 using HarmonyLib;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.JsonSystem;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 
 namespace WraithMods.Patches
 {
@@ -40,15 +30,17 @@ namespace WraithMods.Patches
                     return;
                 }
 
+                string incenseFogFeatureGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
                 var incenseFogFeature = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4aeb5ae7923dac74d91069f13a7f0a95");
-                var newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
-                    "in a 15-foot area around him to aid his allies (including himself), improving their combat abilities. " +
+                string newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
+                    "in a 30-foot area around him to aid his allies (including himself), improving their combat abilities. " +
                     "An affected ally receives a +1 alchemical {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack{/g} " +
                     "and weapon {g|Encyclopedia:Damage}damage rolles{/g}.";
                 //incenseFogFeature.ComponentsArray.Remove<>;
-                
+                string DescriptionKey = "IncenseFogDescription";
 
-                
+                Kingmaker.Localization.LocalizedString newDescription = LocalizationTool.CreateString(DescriptionKey, newIncenseFogDescription);
+                FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription);
 
                 Kingmaker.Utility.Feet incenseFogRangeIncrease = new(30);
                 var incenseFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("4aeb5ae7923dac74d91069f13a7f0a95");

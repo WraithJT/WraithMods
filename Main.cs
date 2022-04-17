@@ -1,7 +1,6 @@
-﻿using UnityModManagerNet;
-using HarmonyLib;
+﻿using HarmonyLib;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityModManagerNet;
 
 namespace WraithMods
 {

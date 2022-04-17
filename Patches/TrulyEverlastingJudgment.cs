@@ -2,12 +2,6 @@
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UnitLogic.ActivatableAbilities;
-using Kingmaker.UnitLogic.Abilities.Components.CasterCheckers;
-using Kingmaker.EntitySystem.Entities;
-using Kingmaker.UnitLogic;
-using Kingmaker.Utility;
-using Kingmaker.Blueprints.Classes;
-using Kingmaker.Designers.EventConditionActionSystem.Conditions;
 
 namespace WraithMods.Patches
 {
@@ -22,7 +16,7 @@ namespace WraithMods.Patches
             {
                 if (Initialized) return;
                 Initialized = true;
-                
+
                 PatchJudgments();
             }
 
@@ -32,11 +26,11 @@ namespace WraithMods.Patches
                 {
                     return;
                 }
-                
-                
-                
+
+
+
                 //var everlastingJudgment = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4a6dc772c9a7fe742a65820007107f03");
-                
+
                 //if (!unit.Descriptor.HasFact(everlastingJudgment))
                 //{
                 //    return;
