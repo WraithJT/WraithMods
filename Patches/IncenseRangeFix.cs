@@ -5,6 +5,9 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.Localization;
+using Kingmaker.Utility;
+using Kingmaker.ResourceLinks;
 
 namespace WraithMods.Patches
 {
@@ -29,24 +32,22 @@ namespace WraithMods.Patches
                 {
                     return;
                 }
+                ////var incenseFogFeature = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4aeb5ae7923dac74d91069f13a7f0a95");
 
                 string incenseFogFeatureGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
-                ////var incenseFogFeature = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4aeb5ae7923dac74d91069f13a7f0a95");
                 string newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
                     "in a 30-foot area around him to aid his allies (including himself), improving their combat abilities. " +
                     "An affected ally receives a +1 alchemical bonus on attack and weapon damage rolls.";
-                string DescriptionKey = "newIncenseFogDescription";
+                string descriptionKey = "newIncenseFogDescription";
+                LocalizedString newDescription = LocalizationTool.CreateString(descriptionKey, newIncenseFogDescription);
+                //FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription).Configure();
                 
-
-                Kingmaker.Localization.LocalizedString newDescription = LocalizationTool.CreateString(DescriptionKey, newIncenseFogDescription);
-                FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription).Configure();
-
-                Kingmaker.Utility.Feet incenseFogRangeIncrease = new(30);
+                Feet incenseFogRangeIncrease = new(30);
                 var incenseFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("4aeb5ae7923dac74d91069f13a7f0a95");
                 incenseFogArea.Size = incenseFogRangeIncrease;
 
                 var flameDancerPerformanceArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("0bd2c3ff0012e6b468497461448174c7");
-                Kingmaker.ResourceLinks.PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
+                PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
                 incenseFogArea.Fx = incenseFogFx;
 
                 //string newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
