@@ -5,6 +5,7 @@ using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.EntitySystem.Entities;
 
+
 namespace WraithMods.Patches
 {
     class IncenseRangeFix
