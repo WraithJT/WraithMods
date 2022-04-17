@@ -31,16 +31,15 @@ namespace WraithMods.Patches
                 }
 
                 string incenseFogFeatureGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
-                var incenseFogFeature = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4aeb5ae7923dac74d91069f13a7f0a95");
+                ////var incenseFogFeature = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4aeb5ae7923dac74d91069f13a7f0a95");
                 string newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
                     "in a 30-foot area around him to aid his allies (including himself), improving their combat abilities. " +
-                    "An affected ally receives a +1 alchemical {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack{/g} " +
-                    "and weapon {g|Encyclopedia:Damage}damage rolles{/g}.";
-                //incenseFogFeature.ComponentsArray.Remove<>;
-                string DescriptionKey = "IncenseFogDescription";
+                    "An affected ally receives a +1 alchemical bonus on attack and weapon damage rolls.";
+                string DescriptionKey = "newIncenseFogDescription";
+                
 
                 Kingmaker.Localization.LocalizedString newDescription = LocalizationTool.CreateString(DescriptionKey, newIncenseFogDescription);
-                FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription);
+                FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription).Configure();
 
                 Kingmaker.Utility.Feet incenseFogRangeIncrease = new(30);
                 var incenseFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("4aeb5ae7923dac74d91069f13a7f0a95");
@@ -50,7 +49,12 @@ namespace WraithMods.Patches
                 Kingmaker.ResourceLinks.PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
                 incenseFogArea.Fx = incenseFogFx;
 
+                //string newIncenseFogDescription = "A 1st-level incense synthesizer can use his ability to create incense fog " +
+                //    "in a 30-foot area around him to aid his allies (including himself), improving their combat abilities. " +
+                //    "An affected ally receives a +1 alchemical {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack{/g} " +
+                //    "and weapon {g|Encyclopedia:Damage}damage rolles{/g}.";
 
+                //incenseFogFeature.ComponentsArray.Remove<>;
                 //73d5950937bf0aa428e82c54c968f7e6
                 //1cd39502119e97f4caa72e7e53ce5ee9 --- increased range
                 //var incenseSynthesizerIncenseFogSelection = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>("73d5950937bf0aa428e82c54c968f7e6");
