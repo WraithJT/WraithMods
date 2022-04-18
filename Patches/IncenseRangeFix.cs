@@ -68,11 +68,11 @@ namespace WraithMods.Patches
                 incenseFogArea.Size = incenseFogRangeIncrease;
                 
 
-                string incenseFogAreaGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
+                //string incenseFogAreaGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
                 var flameDancerPerformanceArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("0bd2c3ff0012e6b468497461448174c7");
                 PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
                 incenseFogArea.Fx = incenseFogFx;
-                AbilityAreaEffectConfigurator.For(incenseFogAreaGUID).SetSize(30);
+                //ilityAreaEffectConfigurator.For(incenseFogAreaGUID).SetSize(30);
             }
         }
     }
