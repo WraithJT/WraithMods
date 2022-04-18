@@ -8,7 +8,7 @@ namespace WraithMods
     {
         public static Settings Settings;
         public static bool Enabled;
-
+        internal static UnityModManager.ModEntry.ModLogger logger;
         static bool Load(UnityModManager.ModEntry modEntry)
         {
             var harmony = new Harmony(modEntry.Info.Id);

@@ -16,8 +16,15 @@ namespace WraithMods.Patches
             {
                 if (Initialized) return;
                 Initialized = true;
-
-                PatchJudgments();
+                
+                try
+                {
+                    PatchJudgments();
+                }
+                catch (Exception ex)
+                {
+                    Main.logger.Log(ex.ToString());
+                }
             }
 
             static void PatchJudgments()
