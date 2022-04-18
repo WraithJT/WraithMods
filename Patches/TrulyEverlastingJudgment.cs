@@ -17,7 +17,7 @@ namespace WraithMods.Patches
             {
                 if (Initialized) return;
                 Initialized = true;
-                
+
                 try
                 {
                     PatchJudgments();

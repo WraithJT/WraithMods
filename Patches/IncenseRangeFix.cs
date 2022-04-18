@@ -1,19 +1,15 @@
-﻿using BlueprintCore.Blueprints.Configurators.Classes;
+﻿using BlueprintCore.Blueprints.Configurators.Buffs;
+using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
-using BlueprintCore.Blueprints.Configurators.Abilities;
-using BlueprintCore.Blueprints.Configurators;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
-using BlueprintCore.Blueprints.Configurators.Buffs;
 using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.UnitLogic.Abilities.Blueprints;
-using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.Localization;
-using Kingmaker.Utility;
 using Kingmaker.ResourceLinks;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.Utility;
 using System;
 
 
@@ -66,7 +62,7 @@ namespace WraithMods.Patches
                 Feet incenseFogRangeIncrease = new(30);
                 var incenseFogArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("4aeb5ae7923dac74d91069f13a7f0a95");
                 incenseFogArea.Size = incenseFogRangeIncrease;
-                
+
                 //string incenseFogAreaGUID = "4aeb5ae7923dac74d91069f13a7f0a95";
                 var flameDancerPerformanceArea = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityAreaEffect>("0bd2c3ff0012e6b468497461448174c7");
                 PrefabLink incenseFogFx = flameDancerPerformanceArea.Fx;
