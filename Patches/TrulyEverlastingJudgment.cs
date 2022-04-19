@@ -3,6 +3,18 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using System;
+using BlueprintCore.Blueprints.Configurators.Buffs;
+using BlueprintCore.Blueprints.Configurators.Classes;
+using BlueprintCore.Blueprints.Configurators.Classes.Selection;
+using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
+using BlueprintCore.Blueprints.Configurators.UnitLogic.Properties;
+using BlueprintCore.Utils;
+using BlueprintCore.Blueprints.Configurators.Abilities;
+using Kingmaker.Localization;
+using Kingmaker.ResourceLinks;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.Utility;
+using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
 
 namespace WraithMods.Patches
 {
@@ -35,7 +47,7 @@ namespace WraithMods.Patches
                     return;
                 }
 
-
+                
 
                 //var everlastingJudgment = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("4a6dc772c9a7fe742a65820007107f03");
 

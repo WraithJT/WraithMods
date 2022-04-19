@@ -4,6 +4,8 @@
 * Classes
 	* Alchemist
 		* Modifies Incense Synthesizer Incense Fog to have a base range of 30 feet, adds some visual and sound effects, and removes the "Incense Fog - Increased Range" option from level up choices.
+	* Mastodon animal companion
+		* Adds the secondary Slam attack back
 *  Abilities
 	* Judgment
 		* Currently modifies all Judgment abilities to be activatable outside of combat. Future state should limit this to characters with the Everlasting Judgment Mythic Ability.

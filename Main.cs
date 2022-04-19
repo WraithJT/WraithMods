@@ -39,6 +39,12 @@ namespace WraithMods
             GUILayout.Space(100);
             Settings.useIncenseRangeFix = GUILayout.Toggle(Settings.useIncenseRangeFix, $" {Settings.useIncenseRangeFix}", GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Use Mastodon Fix (readds the Mastodon's secondary Slam attack)", GUILayout.ExpandWidth(false));
+            GUILayout.Space(100);
+            Settings.useMastodonFix = GUILayout.Toggle(Settings.useMastodonFix, $" {Settings.useMastodonFix}", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)
