@@ -45,6 +45,12 @@ namespace WraithMods
             GUILayout.Space(100);
             Settings.useMastodonFix = GUILayout.Toggle(Settings.useMastodonFix, $" {Settings.useMastodonFix}", GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Use Nature's Agony Fix (adjusts Nature's Agony to give +2 DC to sonic spells instead of +1)", GUILayout.ExpandWidth(false));
+            GUILayout.Space(100);
+            Settings.useNaturesAgonyFix = GUILayout.Toggle(Settings.useNaturesAgonyFix, $" {Settings.useNaturesAgonyFix}", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)

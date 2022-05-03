@@ -7,6 +7,7 @@ namespace WraithMods
         public bool useTrulyEverlastingJudgment = true;
         public bool useIncenseRangeFix = true;
         public bool useMastodonFix = true;
+        public bool useNaturesAgonyFix = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
