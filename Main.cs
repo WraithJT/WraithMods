@@ -51,6 +51,12 @@ namespace WraithMods
             GUILayout.Space(100);
             Settings.useNaturesAgonyFix = GUILayout.Toggle(Settings.useNaturesAgonyFix, $" {Settings.useNaturesAgonyFix}", GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Enable Hidden Features (enables some default features hidden or disabled in the blueprints; currenly only enables Rekarth's background and the Green Faith deity for player selection)", GUILayout.ExpandWidth(false));
+            GUILayout.Space(100);
+            Settings.useEnableHiddenFeatures = GUILayout.Toggle(Settings.useEnableHiddenFeatures, $" {Settings.useEnableHiddenFeatures}", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)

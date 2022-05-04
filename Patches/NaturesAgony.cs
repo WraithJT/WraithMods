@@ -31,7 +31,7 @@ namespace WraithMods.Patches
 
             static void PatchNaturesAgony()
             {
-                if (Main.Settings.useMastodonFix == false)
+                if (Main.Settings.useNaturesAgonyFix == false)
                 {
                     return;
                 }

@@ -8,6 +8,7 @@ namespace WraithMods
         public bool useIncenseRangeFix = true;
         public bool useMastodonFix = true;
         public bool useNaturesAgonyFix = true;
+        public bool useEnableHiddenFeatures = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
