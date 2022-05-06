@@ -29,39 +29,97 @@ namespace WraithMods
         static void OnGUI(UnityModManager.ModEntry modEntry)
         {
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
-            GUILayout.Space(100);
-            Settings.useTrulyEverlastingJudgment = GUILayout.Toggle(Settings.useTrulyEverlastingJudgment, $" {Settings.useTrulyEverlastingJudgment}", GUILayout.ExpandWidth(false));
+            GUILayout.Label("GAME MUST BE RESTARTED FOR CHANGES TO TAKE EFFECT");
             GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Use Incense Range Fix (modifies default Incense Fog range to 30 feet and adds effects)", GUILayout.ExpandWidth(false));
-            GUILayout.Space(100);
-            Settings.useIncenseRangeFix = GUILayout.Toggle(Settings.useIncenseRangeFix, $" {Settings.useIncenseRangeFix}", GUILayout.ExpandWidth(false));
-            GUILayout.EndHorizontal();
+            AddGUIOption("Truly Everlasting Judgment",
+                "Modifies Judgments to be usable out of combat",
+                ref Settings.useTrulyEverlastingJudgment);
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Use Mastodon Fix (readds the Mastodon's secondary Slam attack)", GUILayout.ExpandWidth(false));
-            GUILayout.Space(100);
-            Settings.useMastodonFix = GUILayout.Toggle(Settings.useMastodonFix, $" {Settings.useMastodonFix}", GUILayout.ExpandWidth(false));
-            GUILayout.EndHorizontal();
+            AddGUIOption("Incense Fog Changes",
+                "Modifies default Incense Fog range to 30 feet and adds effects",
+                ref Settings.useIncenseRangeFix);
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Use Nature's Agony Fix (adjusts Nature's Agony to give +2 DC to sonic spells instead of +1)", GUILayout.ExpandWidth(false));
-            GUILayout.Space(100);
-            Settings.useNaturesAgonyFix = GUILayout.Toggle(Settings.useNaturesAgonyFix, $" {Settings.useNaturesAgonyFix}", GUILayout.ExpandWidth(false));
-            GUILayout.EndHorizontal();
+            AddGUIOption("Mastodon Slam Fix",
+                "Readds the Mastodon's secondary Slam attack",
+                ref Settings.useMastodonFix);
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Enable Hidden Features (enables some default features hidden or disabled in the blueprints; currenly only enables Rekarth's background and the Green Faith deity for player selection)", GUILayout.ExpandWidth(false));
-            GUILayout.Space(100);
-            Settings.useEnableHiddenFeatures = GUILayout.Toggle(Settings.useEnableHiddenFeatures, $" {Settings.useEnableHiddenFeatures}", GUILayout.ExpandWidth(false));
-            GUILayout.EndHorizontal();
+            AddGUIOption("Hidden Feature Enabler",
+                "Enables some default features hidden or disabled in the blueprints " +
+                "(Currenly only enables Rekarth's background and the Green Faith deity for player selection)",
+                ref Settings.useEnableHiddenFeatures);
+
+            AddGUIOption("Nature's Agony Fix",
+                "Fixes Nature's Agony to give +2 DC to sonic spells instead of +1",
+                ref Settings.useNaturesAgonyFix);
+
+            AddGUIOption("Wildland Shaman Second Spirit",
+                "Allows Wildland Shaman to select Second Spirit Mythic Ability",
+                ref Settings.useWildlandSecondSpirit);
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useTrulyEverlastingJudgment = GUILayout.Toggle(Settings.useTrulyEverlastingJudgment, $" {Settings.useTrulyEverlastingJudgment}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Use Incense Range Fix (modifies default Incense Fog range to 30 feet and adds effects)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useIncenseRangeFix = GUILayout.Toggle(Settings.useIncenseRangeFix, $" {Settings.useIncenseRangeFix}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Use Mastodon Fix (readds the Mastodon's secondary Slam attack)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useMastodonFix = GUILayout.Toggle(Settings.useMastodonFix, $" {Settings.useMastodonFix}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Use Nature's Agony Fix (adjusts Nature's Agony to give +2 DC to sonic spells instead of +1)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useNaturesAgonyFix = GUILayout.Toggle(Settings.useNaturesAgonyFix, $" {Settings.useNaturesAgonyFix}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Enable Hidden Features (enables some default features hidden or disabled in the blueprints; currenly only enables Rekarth's background and the Green Faith deity for player selection)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useEnableHiddenFeatures = GUILayout.Toggle(Settings.useEnableHiddenFeatures, $" {Settings.useEnableHiddenFeatures}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Enable Wildland Shaman Second Spirit (Allows Wildland Shaman to select Second Spirit Mythic Ability)", GUILayout.ExpandWidth(false));
+            //GUILayout.Space(100);
+            //Settings.useWildlandSecondSpirit = GUILayout.Toggle(Settings.useWildlandSecondSpirit, $" {Settings.useWildlandSecondSpirit}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
+
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("testing some layout configurations", GUILayout.ExpandWidth(true));
+            //GUILayout.FlexibleSpace();
+            //GUILayout.Label("more layout testing happening here, using ExpandWidth", GUILayout.ExpandWidth(false));
+            //GUILayout.FlexibleSpace();
+            //GUILayout.Toggle(Settings.useWildlandSecondSpirit, $" {Settings.useWildlandSecondSpirit}", GUILayout.ExpandWidth(false));
+            //GUILayout.EndHorizontal();
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)
         {
             Settings.Save(modEntry);
+        }
+
+        static void AddGUIOption(string name, string description, ref bool setting)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(15);
+            int len = name.Length;
+            do
+            {
+                name += "\t";
+                len += 10;
+            } while (len < 50);
+            name += description;
+            setting = GUILayout.Toggle(setting, name, GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
         }
     }
 }

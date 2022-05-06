@@ -9,6 +9,7 @@ namespace WraithMods
         public bool useMastodonFix = true;
         public bool useNaturesAgonyFix = true;
         public bool useEnableHiddenFeatures = true;
+        public bool useWildlandSecondSpirit = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
