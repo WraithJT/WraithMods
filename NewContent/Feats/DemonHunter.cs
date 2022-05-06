@@ -48,6 +48,11 @@ namespace WraithMods.NewContent.Feats
             }
             public static void PatchDemonHunter()
             {
+                if (Main.Settings.useDemonHunter == false)
+                {
+                    return;
+                }
+
                 string subtypeDemon = "dc960a234d365cb4f905bdc5937e623a";
 
                 FeatureConfigurator.New(FeatName, FeatGuid)

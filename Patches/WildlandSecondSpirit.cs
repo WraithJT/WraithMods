@@ -50,7 +50,9 @@ namespace WraithMods.Patches
                 prerequisiteFeaturesFromList.CheckInProgression = false;
                 prerequisiteFeaturesFromList.HideInUI = false;
                 prerequisiteFeaturesFromList.Amount = 1;
-                prerequisiteFeaturesFromList.m_Features = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(shamanSPiritSelectionGUID).m_AllFeatures;
+                prerequisiteFeaturesFromList.m_Features = ResourcesLibrary
+                    .TryGetBlueprint<BlueprintFeatureSelection>(shamanSPiritSelectionGUID)
+                    .m_AllFeatures;
                 
                 //Add new prerequisite to Second Spirit prerequisite list
                 var componentsArray = secondSpirit.ComponentsArray;
