@@ -69,7 +69,7 @@ namespace WraithMods.NewContent.Archetypes
                 chargedByNature.m_Icon = null;
                 chargedByNature.AddComponents();
 
-
+                //figure out how to add stuff
                 BlueprintArchetype ravenerHunter = new();
                 ravenerHunter.AddFeatures = new LevelEntry[]
                 {
