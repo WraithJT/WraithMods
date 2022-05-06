@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
@@ -37,28 +36,46 @@ namespace WraithMods.Patches
                 {
                     return;
                 }
-
+                
+                //Remove previous Spirit Selection prerequisite
                 string secondSpiritGUID = "2faa80662a56ab644aec2f875a68597f";
                 var secondSpirit = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(secondSpiritGUID);
                 secondSpirit.ComponentsArray = secondSpirit.ComponentsArray.Where(c => !(c is PrerequisiteFeature)).ToArray();
-
-                string shamanClassGUID = "145f1d3d360a7ad48bd95d392c81b38e";
-                PrerequisiteClassLevel prerequisiteClassLevel = new();
-                var shamanClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(shamanClassGUID);
-                prerequisiteClassLevel.m_CharacterClass = shamanClass.ToReference<BlueprintCharacterClassReference>();
-                prerequisiteClassLevel.Level = 1;
-
-                string unswornShamanArchetypeGUID = "556590a43467a27459ac1a80324c9f9f";
-                var unswornShamanArchetype = ResourcesLibrary.TryGetBlueprint<BlueprintArchetype>(unswornShamanArchetypeGUID);
-                PrerequisiteNoArchetype prerequisiteNoArchetype = new();
-                prerequisiteNoArchetype.m_Archetype = unswornShamanArchetype.ToReference<BlueprintArchetypeReference>();
-                prerequisiteNoArchetype.m_CharacterClass = shamanClass.ToReference<BlueprintCharacterClassReference>();
-
+                
+                //Build new prerequisite based off of requiring 1 Shaman Spirit
+                string shamanSPiritSelectionGUID = "00c8c566d1825dd4a871250f35285982";
+                PrerequisiteFeaturesFromList prerequisiteFeaturesFromList = new();
+                prerequisiteFeaturesFromList.name = "";
+                prerequisiteFeaturesFromList.Group = Prerequisite.GroupType.All;
+                prerequisiteFeaturesFromList.CheckInProgression = false;
+                prerequisiteFeaturesFromList.HideInUI = false;
+                prerequisiteFeaturesFromList.Amount = 1;
+                prerequisiteFeaturesFromList.m_Features = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(shamanSPiritSelectionGUID).m_AllFeatures;
+                
+                //Add new prerequisite to Second Spirit prerequisite list
                 var componentsArray = secondSpirit.ComponentsArray;
-                secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteClassLevel).ToArray();
-                componentsArray = secondSpirit.ComponentsArray;
-                secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteNoArchetype).ToArray();
+                secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteFeaturesFromList).ToArray();
+
+                #region old method
+                //string shamanClassGUID = "145f1d3d360a7ad48bd95d392c81b38e";
+                //PrerequisiteClassLevel prerequisiteClassLevel = new();
+                //var shamanClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(shamanClassGUID);
+                //prerequisiteClassLevel.m_CharacterClass = shamanClass.ToReference<BlueprintCharacterClassReference>();
+                //prerequisiteClassLevel.Level = 1;
+
+                //string unswornShamanArchetypeGUID = "556590a43467a27459ac1a80324c9f9f";
+                //var unswornShamanArchetype = ResourcesLibrary.TryGetBlueprint<BlueprintArchetype>(unswornShamanArchetypeGUID);
+                //PrerequisiteNoArchetype prerequisiteNoArchetype = new();
+                //prerequisiteNoArchetype.m_Archetype = unswornShamanArchetype.ToReference<BlueprintArchetypeReference>();
+                //prerequisiteNoArchetype.m_CharacterClass = shamanClass.ToReference<BlueprintCharacterClassReference>();
+
+                //secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteClassLevel).ToArray();
+                //componentsArray = secondSpirit.ComponentsArray;
+                //secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteNoArchetype).ToArray();
+                #endregion
             }
+
+
         }
     }
 }

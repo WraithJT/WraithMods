@@ -11,6 +11,7 @@ namespace WraithMods
         public bool useEnableHiddenFeatures = true;
         public bool useWildlandSecondSpirit = true;
         public bool useDemonHunter = true;
+        public bool useRavenerHunter = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {

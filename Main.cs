@@ -61,6 +61,10 @@ namespace WraithMods
                 "Adds the Demon Hunter feat",
                 ref Settings.useDemonHunter);
 
+            //AddGUIOption("Ravener Hunter Archetype",
+            //    "Adds the Ravener Hunter Inquisitor Archetype",
+            //    ref Settings.useRavenerHunter);
+
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
             //GUILayout.Space(100);

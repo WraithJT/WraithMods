@@ -41,5 +41,12 @@ namespace WraithMods.Utilities
             selection.m_AllFeatures = selection.m_AllFeatures.OrderBy(feature => feature.Get().Name ?? feature.Get().name).ToArray();
             selection.m_Features = selection.m_Features.OrderBy(feature => feature.Get().Name ?? feature.Get().name).ToArray();
         }
+
+        public static T Ref<T>(string v) where T : BlueprintReferenceBase
+        {
+            var tref = Activator.CreateInstance<T>();
+            tref.deserializedGuid = BlueprintGuid.Parse(v);
+            return tref;
+        }
     }
 }

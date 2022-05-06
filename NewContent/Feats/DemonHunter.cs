@@ -3,9 +3,14 @@ using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Utils;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Designers.Mechanics.Facts;
 using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
+using System.Collections;
+using Kingmaker.Localization;
+using Kingmaker.Blueprints;
+using WraithMods.Utilities;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -16,10 +21,10 @@ namespace WraithMods.NewContent.Feats
         private static readonly string BasicFeatSelectionGuid = "247a4068-296e-8be4-2890-143f451b4b45";
 
         private static readonly string DisplayName = "Demon Hunter";
-        private static readonly string DisplayNameKey = "Demon Hunter";
+        private static readonly string DisplayNameKey = "DemonHunterName";
         private static readonly string Description =
             "You gain a +2 morale bonus on all attack rolls made against creatures with the demon subtype " +
-            "and a +2 morale bonus on caster level checks to penetrate spell resistance.";
+            "and a +1 morale bonus on caster level checks to penetrate spell resistance.";
         private static readonly string DescriptionKey = "DemonHunterDescription";
 
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
@@ -34,7 +39,7 @@ namespace WraithMods.NewContent.Feats
 
                 try
                 {
-                    PatchDemonHunter();
+                    //PatchDemonHunter();
                 }
                 catch (Exception ex)
                 {
@@ -50,11 +55,36 @@ namespace WraithMods.NewContent.Feats
                     .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
                     .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
                     .SetFeatureGroups(FeatureGroup.Feat)
-                    .AddAttackBonusAgainstFactOwner(checkedFact: subtypeDemon, attackBonus: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
-                    .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
+                    .AddAttackBonusAgainstFactOwner(attackBonus: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkedFact: subtypeDemon)
+                    .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkFact: true, requiredFact: subtypeDemon)
                     .Configure();
 
                 FeatureSelectionConfigurator.For(BasicFeatSelectionGuid).AddToFeatures(FeatName).Configure();
+
+                #region testing non BlueprintCore
+                //BlueprintFeature demonHunter = new();
+                //demonHunter.m_DisplayName = LocalizationTool.CreateString(DisplayNameKey, DisplayName);
+                //demonHunter.m_Description = LocalizationTool.CreateString(DescriptionKey, Description);
+
+                //AttackBonusAgainstFactOwner ab = new AttackBonusAgainstFactOwner();
+                //ab.AttackBonus = 2;
+                //ab.m_CheckedFact = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(subtypeDemon).ToReference<BlueprintUnitFactReference>();
+                //SpellPenetrationBonus sp = new();
+                //sp.Value = 2;
+                //sp.m_RequiredFact = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(subtypeDemon).ToReference<BlueprintUnitFactReference>();
+                //sp.CheckFact = true;
+
+                //demonHunter.AddComponents(ab, sp);
+
+
+                //var featSelection = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(BasicFeatSelectionGuid);
+                //var featuresArray = featSelection.m_Features;
+                //var allFeaturesArray = featSelection.AllFeatures;
+                //featSelection.m_Features = featuresArray.AddItem<BlueprintFeatureReference>(demonHunter.ToReference<BlueprintFeatureReference>());
+
+                //featSelection.Features.AddItem(demonHunter);
+                //featSelection.AllFeatures.AddItem(demonHunter);
+                #endregion
             }
         }
     }
