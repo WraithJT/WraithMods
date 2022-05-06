@@ -57,6 +57,10 @@ namespace WraithMods
                 "Allows Wildland Shaman to select Second Spirit Mythic Ability",
                 ref Settings.useWildlandSecondSpirit);
 
+            AddGUIOption("Demon Hunter Feat",
+                "Adds the Demon Hunter feat",
+                ref Settings.useDemonHunter);
+
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
             //GUILayout.Space(100);
