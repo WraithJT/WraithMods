@@ -25,17 +25,9 @@ namespace WraithMods.InfoForMe
 
             var bloodrageBuff = ResourcesLibrary.TryGetBlueprint<BlueprintBuff>(Guids.BloodragerStandartRageBuff);
 
-            var conditionsArray =
-            furious.GetComponent<WeaponConditionalEnhancementBonus>()
-                .Conditions
-                .Conditions;
+            var conditionsArray = furious.GetComponent<WeaponConditionalEnhancementBonus>().Conditions.Conditions;
 
-            furious.GetComponent<WeaponConditionalEnhancementBonus>()
-                .Conditions
-                .Conditions =
-                    conditionsArray
-                    .AddItem(new ContextConditionHasBuff() { m_Buff = bloodrageBuff.ToReference<BlueprintBuffReference>() })
-                    .ToArray();
+            furious.GetComponent<WeaponConditionalEnhancementBonus>().Conditions.Conditions = conditionsArray.AddItem(new ContextConditionHasBuff() { m_Buff = bloodrageBuff.ToReference<BlueprintBuffReference>() }).ToArray();
         }
 
     }

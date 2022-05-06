@@ -119,6 +119,7 @@ namespace WraithMods
             } while (len < 50);
             name += description;
             setting = GUILayout.Toggle(setting, name, GUILayout.ExpandWidth(false));
+
             GUILayout.EndHorizontal();
         }
     }
