@@ -1,16 +1,11 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Utils;
+using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
-using Kingmaker.Designers.Mechanics.Facts;
-using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
-using System.Collections;
-using Kingmaker.Localization;
-using Kingmaker.Blueprints;
-using WraithMods.Utilities;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -61,7 +56,7 @@ namespace WraithMods.NewContent.Feats
                     .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
                     .SetFeatureGroups(FeatureGroup.Feat)
                     .AddAttackBonusAgainstFactOwner(attackBonus: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkedFact: subtypeDemon)
-                    .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkFact: true, requiredFact: subtypeDemon)
+                    .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
                     .Configure();
 
                 FeatureSelectionConfigurator.For(BasicFeatSelectionGuid).AddToFeatures(FeatName).Configure();

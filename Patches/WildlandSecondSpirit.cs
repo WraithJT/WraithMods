@@ -36,12 +36,12 @@ namespace WraithMods.Patches
                 {
                     return;
                 }
-                
+
                 //Remove previous Spirit Selection prerequisite
                 string secondSpiritGUID = "2faa80662a56ab644aec2f875a68597f";
                 var secondSpirit = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(secondSpiritGUID);
                 secondSpirit.ComponentsArray = secondSpirit.ComponentsArray.Where(c => !(c is PrerequisiteFeature)).ToArray();
-                
+
                 //Build new prerequisite based off of requiring 1 Shaman Spirit
                 string shamanSPiritSelectionGUID = "00c8c566d1825dd4a871250f35285982";
                 PrerequisiteFeaturesFromList prerequisiteFeaturesFromList = new();
@@ -53,7 +53,7 @@ namespace WraithMods.Patches
                 prerequisiteFeaturesFromList.m_Features = ResourcesLibrary
                     .TryGetBlueprint<BlueprintFeatureSelection>(shamanSPiritSelectionGUID)
                     .m_AllFeatures;
-                
+
                 //Add new prerequisite to Second Spirit prerequisite list
                 var componentsArray = secondSpirit.ComponentsArray;
                 secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteFeaturesFromList).ToArray();
@@ -76,8 +76,6 @@ namespace WraithMods.Patches
                 //secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteNoArchetype).ToArray();
                 #endregion
             }
-
-
         }
     }
 }

@@ -1,20 +1,9 @@
-﻿using HarmonyLib;
-using Kingmaker.Blueprints;
+﻿using BlueprintCore.Utils;
+using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Blueprints.Classes.Prerequisites;
-using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
-using System;
-using System.Linq;
-using BlueprintCore.Blueprints.Configurators.Buffs;
-using BlueprintCore.Blueprints.Configurators.Classes;
-using BlueprintCore.Blueprints.Configurators.Classes.Selection;
-using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
-using BlueprintCore.Utils;
 using Kingmaker.Localization;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Kingmaker.UnitLogic.FactLogic;
-using Kingmaker.UnitLogic.Mechanics.Components;
+using System;
 
 namespace WraithMods.NewContent.Archetypes
 {
@@ -67,7 +56,6 @@ namespace WraithMods.NewContent.Archetypes
                     chargedByNatureDescription);
                 chargedByNature.IsClassFeature = true;
                 chargedByNature.m_Icon = null;
-                chargedByNature.AddComponents();
 
                 //figure out how to add stuff
                 BlueprintArchetype ravenerHunter = new();
@@ -80,6 +68,7 @@ namespace WraithMods.NewContent.Archetypes
 
                 };
 
+
                 //BlueprintFeature chargedByNature = new BlueprintFeature();
                 //chargedByNature.name = "";
                 //LocalizedString description = LocalizationTool.CreateString(chargedByNatureDescriptionKey, chargedByNatureDescription);
@@ -88,7 +77,7 @@ namespace WraithMods.NewContent.Archetypes
                 //    .SetDescription(LocalizationTool.CreateString(chargedByNatureDescriptionKey, chargedByNatureDescription))
                 //    .addlev;
 
-                
+
                 //string secondSpiritGUID = "2faa80662a56ab644aec2f875a68597f";
                 //var secondSpirit = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(secondSpiritGUID);
                 //secondSpirit.ComponentsArray = secondSpirit.ComponentsArray.Where(c => !(c is PrerequisiteFeature)).ToArray();

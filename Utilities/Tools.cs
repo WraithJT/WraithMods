@@ -1,6 +1,7 @@
 ﻿using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Utility;
 using System;
 using System.Linq;
 
@@ -48,5 +49,6 @@ namespace WraithMods.Utilities
             tref.deserializedGuid = BlueprintGuid.Parse(v);
             return tref;
         }
+
     }
 }

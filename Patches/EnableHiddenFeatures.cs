@@ -50,7 +50,6 @@ namespace WraithMods.Patches
                 backgroundRekarthDLC2.ComponentsArray = backgroundRekarthDLC2.ComponentsArray.Where(c => !(c is PrerequisiteFeature)).ToArray();
                 backgroundRekarthDLC2.GetComponents<AddBackgroundWeaponProficiency>().ForEach(c => c.StackBonusType = ModifierDescriptor.Trait);
 
-
                 string backgroundsWandererSelectionGUID = "0cdd576724fce2240b372455889fac87";
                 var backgroundsWandererSelection = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(backgroundsWandererSelectionGUID);
                 backgroundsWandererSelection.Features.AddItem<BlueprintFeature>(backgroundRekarthDLC2.ToReference<BlueprintFeatureReference>());
@@ -70,15 +69,7 @@ namespace WraithMods.Patches
                 //backgroundsRegionalSelection.AddFeatures(backgroundRahadoumFaithless);
                 ////backgroundsRegionalSelection.Features.Append<BlueprintFeature>(backgroundRahadoumFaithless);
                 ////backgroundsRegionalSelection.AllFeatures.Append<BlueprintFeature>(backgroundRahadoumFaithless);
-
             }
-
         }
-
-
     }
-
-
 }
-
-
