@@ -5,6 +5,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Utility;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace WraithMods.Utilities
 {
@@ -66,6 +67,133 @@ namespace WraithMods.Utilities
                     .Where(selection => feature.HasGroup(selection.Group) || feature.HasGroup(selection.Group2))
                     .ForEach(selection => selection.AddFeatures(feature));
             }
+        }
+
+        /// <summary>
+        /// Creates a new LevelEntry with the supplied level and features.
+        /// </summary>
+        /// <param name="level">
+        /// Level to use for the level entry.
+        /// </param>
+        /// <param name="features">
+        /// Features to add to the level entry.
+        /// </param>
+        /// <returns>
+        /// New Level entry setup with supplied arguments.
+        /// </returns>
+        public static LevelEntry CreateLevelEntry(int level, params BlueprintFeatureBase[] features)
+        {
+            return CreateLevelEntry(level, features.Select(f => f.ToReference<BlueprintFeatureBaseReference>()).ToArray());
+        }
+        /// <summary>
+        /// Creates a new LevelEntry with the supplied level and features.
+        /// </summary>
+        /// <param name="level">
+        /// Level to use for the level entry.
+        /// </param>
+        /// <param name="features">
+        /// Features to add to the level entry.
+        /// </param>
+        /// <returns>
+        /// New Level entry setup with supplied arguments.
+        /// </returns>
+        public static LevelEntry CreateLevelEntry(int level, params BlueprintFeatureBaseReference[] features)
+        {
+            LevelEntry levelEntry = new LevelEntry()
+            {
+                Level = level,
+                m_Features = features.ToList()
+            };
+            return levelEntry;
+        }
+
+        /// <summary>
+        /// Adds new component to the object's ComponentsArray and initalizes it with the supplied action.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="component">
+        /// Components to add.
+        /// </param>
+        public static void AddComponent(this BlueprintScriptableObject obj, BlueprintComponent component)
+        {
+            obj.SetComponents(obj.ComponentsArray.AppendToArray(component));
+        }
+        /// <summary>
+        /// Adds new component to the object's ComponentsArray and initalizes it with the supplied action.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="init">
+        /// Action to initialize new Component.
+        /// </param>
+        public static void AddComponent<T>(this BlueprintScriptableObject obj, Action<T> init = null) where T : BlueprintComponent, new()
+        {
+            obj.SetComponents(obj.ComponentsArray.AppendToArray(Tools.Create(init)));
+        }
+        /// <summary>
+        /// Adds new components to the object's ComponentsArray.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="components">
+        /// Components to add.
+        /// </param>
+        public static void AddComponents(this BlueprintScriptableObject obj, IEnumerable<BlueprintComponent> components) => AddComponents(obj, components.ToArray());
+        /// <summary>
+        /// Adds new components to the object's ComponentsArray.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="components">
+        /// Components to add.
+        /// </param>
+        public static void AddComponents(this BlueprintScriptableObject obj, params BlueprintComponent[] components)
+        {
+            var c = obj.ComponentsArray.ToList();
+            c.AddRange(components);
+            obj.SetComponents(c.ToArray());
+        }
+        public static void SetComponents(this BlueprintScriptableObject obj, params BlueprintComponent[] components)
+        {
+            // Fix names of components. Generally this doesn't matter, but if they have serialization state,
+            // then their name needs to be unique.
+            var names = new HashSet<string>();
+            foreach (var c in components)
+            {
+                if (string.IsNullOrEmpty(c.name))
+                {
+                    c.name = $"${c.GetType().Name}";
+                }
+                if (!names.Add(c.name))
+                {
+                    String name;
+                    for (int i = 0; !names.Add(name = $"{c.name}${i}"); i++) ;
+                    c.name = name;
+                }
+            }
+            obj.ComponentsArray = components;
+            obj.OnEnable(); // To make sure components are fully initialized
+        }
+        /// <summary>
+        /// Overrides the object's existing ComponentsArray with a new ComponentsArray filled with the supplied components.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="components">
+        /// Components to set as the new ComponentsArray.
+        /// </param>
+        public static void SetComponents(this BlueprintScriptableObject obj, IEnumerable<BlueprintComponent> components)
+        {
+            SetComponents(obj, components.ToArray());
+        }
+        public static T Create<T>(Action<T> init = null) where T : new()
+        {
+            var result = new T();
+            init?.Invoke(result);
+            return result;
+        }
+
+        public static UIGroup CreateUIGroup(params BlueprintFeatureBase[] features)
+        {
+            UIGroup uiGroup = new UIGroup();
+            features.ForEach(f => uiGroup.Features.Add(f));
+            return uiGroup;
         }
 
         public static class Selections

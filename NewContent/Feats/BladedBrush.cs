@@ -80,21 +80,23 @@ namespace WraithMods.NewContent.Feats
                     .AddRecommendationHasFeature(shelynGUID)
                     .AddRecommendationWeaponTypeFocus(WeaponRangeType.Melee)
                     .Configure();
-
-                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(bladedBrushFeatGuid));
-
+                
                 FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(sgbladedBrushDisplayNameKey, sgbladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(sgbladedBrushDescriptionKey, sgbladedBrushDescription))
                     .SetFeatureTags(FeatureTag.Attack)
                     .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
-                    .AddWeaponTypeDamageStatReplacement(StatType.Dexterity, WeaponCategory.Glaive, twoHandedBonus: true)
+                    .AddWeaponTypeDamageStatReplacement(
+                        StatType.Dexterity, 
+                        WeaponCategory.Glaive, 
+                        twoHandedBonus: true)
                     .PrerequisiteFeature(bladedBrushFeatGuid)
                     .AddRecommendationHasFeature(bladedBrushFeatGuid)
                     .AddRecommendationStatComparison(StatType.Dexterity, StatType.Strength, 4)
                     .Configure();
 
                 if (Main.Settings.useBladedBrush == false) { return; }
+                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(bladedBrushFeatGuid));
                 Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(sgbladedBrushFeatGuid));
             }
         }

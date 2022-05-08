@@ -19,7 +19,7 @@ namespace WraithMods.NewContent.Feats
         private static readonly string DisplayNameKey = "DemonHunterName";
         private static readonly string Description =
             "You gain a +2 morale bonus on all attack rolls made against creatures with the demon subtype " +
-            "and a +1 morale bonus on caster level checks to penetrate spell resistance.";
+            "and a +2 morale bonus on caster level checks to penetrate spell resistance.";
         private static readonly string DescriptionKey = "DemonHunterDescription";
 
         private static readonly string BasicFeatSelectionGuid = "247a4068-296e-8be4-2890-143f451b4b45";
@@ -45,7 +45,7 @@ namespace WraithMods.NewContent.Feats
                     .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
                     .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
-                    .SetFeatureGroups(FeatureGroup.Feat)
+                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                     .AddAttackBonusAgainstFactOwner(attackBonus: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkedFact: subtypeDemon)
                     .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
                     .Configure();
