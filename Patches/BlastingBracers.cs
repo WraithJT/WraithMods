@@ -67,7 +67,7 @@ namespace WraithMods.Patches
                 {
 
                 }
-                wrist.m_Enchantments = divineDismissal.m_Enchantments.ToArray();
+                //wrist.m_Enchantments = divineDismissal.m_Enchantments.ToArray();
 
 
                 string electricBlastAbilityGUID = "24f26ac07d21a0e4492899085d1302f6";

@@ -13,6 +13,7 @@ namespace WraithMods
         public bool useDemonHunter = true;
         public bool useRavenerHunter = true;
         public bool useBlastingBracers = true;
+        public bool useBladedBrush = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {

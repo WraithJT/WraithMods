@@ -58,6 +58,8 @@ namespace WraithMods.Patches
                 var componentsArray = secondSpirit.ComponentsArray;
                 secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteFeaturesFromList).ToArray();
 
+                //Tools.LogMessage("Reconfigured Second Spirit for Wildland Shaman");
+
                 #region old method
                 //string shamanClassGUID = "145f1d3d360a7ad48bd95d392c81b38e";
                 //PrerequisiteClassLevel prerequisiteClassLevel = new();

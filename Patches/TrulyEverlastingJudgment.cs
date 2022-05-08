@@ -67,6 +67,7 @@ namespace WraithMods.Patches
                     UpdateJudgment(s);
                 }
 
+
                 //var justiceJudgmentAbility = ResourcesLibrary.TryGetBlueprint<BlueprintActivatableAbility>("ddffa896d4605a44f95baa6d0d350828");
                 //justiceJudgmentAbility.OnlyInCombat = false;
                 //justiceJudgmentAbility.DeactivateIfCombatEnded = false;

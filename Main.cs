@@ -9,9 +9,22 @@ namespace WraithMods
         public static Settings Settings;
         public static bool Enabled;
         internal static UnityModManager.ModEntry.ModLogger logger;
+
+        //public static ModContextTTTCore TTTContext;
+        //static bool Load(UnityModManager.ModEntry modEntry)
+        //{
+        //    var harmony = new Harmony(modEntry.Info.Id);
+        //    TTTContext = new ModContextTTTCore(modEntry);
+        //    TTTContext.LoadAllSettings();
+        //    TTTContext.ModEntry.OnSaveGUI = OnSaveGUI;
+        //    harmony.PatchAll();
+        //    PostPatchInitializer.Initialize(TTTContext);
+        //    return true;
+        //}
         static bool Load(UnityModManager.ModEntry modEntry)
         {
             var harmony = new Harmony(modEntry.Info.Id);
+            logger = modEntry.Logger;
             Settings = Settings.Load<Settings>(modEntry);
             modEntry.OnToggle = OnToggle;
             modEntry.OnGUI = OnGUI;
@@ -65,6 +78,10 @@ namespace WraithMods
             //    "Adds the Ravener Hunter Inquisitor Archetype",
             //    ref Settings.useRavenerHunter);
 
+            AddGUIOption("Bladed Brush Feat",
+                "Adds the Bladed Brush feat, and the accompanying Slashing Grace feat",
+                ref Settings.useBladedBrush);
+
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
             //GUILayout.Space(100);
@@ -117,14 +134,19 @@ namespace WraithMods
 
         static void AddGUIOption(string name, string description, ref bool setting)
         {
+            GUILayout.BeginVertical();
+            GUILayout.Space(5);
+            GUILayout.EndVertical();
             GUILayout.BeginHorizontal();
             GUILayout.Space(15);
+            name = " " + name;
             int len = name.Length;
             do
             {
                 name += "\t";
+                if (name.Length >= 50) { break; }
                 len += 10;
-            } while (len < 50);
+            } while (len < 49);
             name += description;
             setting = GUILayout.Toggle(setting, name, GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
