@@ -6,6 +6,8 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
+using WraithMods.Utilities;
+using Kingmaker.Blueprints;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -13,8 +15,6 @@ namespace WraithMods.NewContent.Feats
     {
         private static readonly string FeatName = "DemonHunter";
         private static readonly string FeatGuid = "8976620F-6B3D-4B34-A578-4FAD79B9881E";
-        private static readonly string BasicFeatSelectionGuid = "247a4068-296e-8be4-2890-143f451b4b45";
-
         private static readonly string DisplayName = "Demon Hunter";
         private static readonly string DisplayNameKey = "DemonHunterName";
         private static readonly string Description =
@@ -22,36 +22,27 @@ namespace WraithMods.NewContent.Feats
             "and a +1 morale bonus on caster level checks to penetrate spell resistance.";
         private static readonly string DescriptionKey = "DemonHunterDescription";
 
+        private static readonly string BasicFeatSelectionGuid = "247a4068-296e-8be4-2890-143f451b4b45";
+
+
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
         static class BlueprintsCache_Init_patch
         {
             static bool Initialized;
-
             static void Postfix()
             {
                 if (Initialized) return;
                 Initialized = true;
 
-                try
-                {
-                    //PatchDemonHunter();
-                }
-                catch (Exception ex)
-                {
-                    Main.logger.Log(ex.ToString());
-                }
+                try { PatchDemonHunter(); }
+                catch (Exception ex) { Main.logger.Log(ex.ToString()); }
             }
             public static void PatchDemonHunter()
             {
-                if (Main.Settings.useDemonHunter == false)
-                {
-                    return;
-                }
-
                 string subtypeDemon = "dc960a234d365cb4f905bdc5937e623a";
 
                 FeatureConfigurator.New(FeatName, FeatGuid)
-                    .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName))
+                    .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
                     .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
                     .SetFeatureGroups(FeatureGroup.Feat)
@@ -59,7 +50,9 @@ namespace WraithMods.NewContent.Feats
                     .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
                     .Configure();
 
-                FeatureSelectionConfigurator.For(BasicFeatSelectionGuid).AddToFeatures(FeatName).Configure();
+                if (Main.Settings.useDemonHunter == false) { return; }
+                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(FeatGuid));
+                //FeatureSelectionConfigurator.For(BasicFeatSelectionGuid).AddToFeatures(FeatName).Configure();
 
                 #region testing non BlueprintCore
                 //BlueprintFeature demonHunter = new();

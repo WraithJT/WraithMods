@@ -60,11 +60,6 @@ namespace WraithMods.NewContent.Feats
             }
             public static void PatchBladedBrush()
             {
-                if (Main.Settings.useDemonHunter == false)
-                {
-                    return;
-                }
-
                 string glaiveGUID = "7a14a1b224cd173449cb7ffc77d5f65c";
                 string shelynGUID = "b382afa31e4287644b77a8b30ed4aa0b";
                 string weaponFocusGUID = "1e1f627d26ad36f43bbd26cc2bf8ac7e";
@@ -86,7 +81,7 @@ namespace WraithMods.NewContent.Feats
                     .AddRecommendationWeaponTypeFocus(WeaponRangeType.Melee)
                     .Configure();
 
-                AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(bladedBrushFeatGuid));
+                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(bladedBrushFeatGuid));
 
                 FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(sgbladedBrushDisplayNameKey, sgbladedBrushDisplayName, false))
@@ -99,19 +94,8 @@ namespace WraithMods.NewContent.Feats
                     .AddRecommendationStatComparison(StatType.Dexterity, StatType.Strength, 4)
                     .Configure();
 
-                AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(sgbladedBrushFeatGuid));
-            }
-        }
-
-        public static void AddAsFeat(params BlueprintFeature[] features)
-        {
-            foreach (var feature in features)
-            {
-                Tools.Selections.BasicFeatSelection.AddFeatures(features);
-                Tools.Selections.ExtraFeatMythicFeat.AddFeatures(features);
-                Tools.Selections.FeatSelections
-                    .Where(selection => feature.HasGroup(selection.Group) || feature.HasGroup(selection.Group2))
-                    .ForEach(selection => selection.AddFeatures(feature));
+                if (Main.Settings.useBladedBrush == false) { return; }
+                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(sgbladedBrushFeatGuid));
             }
         }
     }

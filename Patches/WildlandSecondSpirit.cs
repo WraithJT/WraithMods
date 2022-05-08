@@ -5,6 +5,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
 using System.Linq;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -58,7 +59,7 @@ namespace WraithMods.Patches
                 var componentsArray = secondSpirit.ComponentsArray;
                 secondSpirit.ComponentsArray = componentsArray.AddItem(prerequisiteFeaturesFromList).ToArray();
 
-                //Tools.LogMessage("Reconfigured Second Spirit for Wildland Shaman");
+                Tools.LogMessage("Reconfigured Second Spirit for Wildland Shaman");
 
                 #region old method
                 //string shamanClassGUID = "145f1d3d360a7ad48bd95d392c81b38e";

@@ -53,7 +53,19 @@ namespace WraithMods.Utilities
 
         public static void LogMessage(string msg)
         {
-            Main.logger.Log("[Wraith Mods] " + msg);
+            Main.logger.Log("[Wraith Mods] - " + msg);
+        }
+
+        public static void AddAsFeat(params BlueprintFeature[] features)
+        {
+            foreach (var feature in features)
+            {
+                Tools.Selections.BasicFeatSelection.AddFeatures(features);
+                Tools.Selections.ExtraFeatMythicFeat.AddFeatures(features);
+                Tools.Selections.FeatSelections
+                    .Where(selection => feature.HasGroup(selection.Group) || feature.HasGroup(selection.Group2))
+                    .ForEach(selection => selection.AddFeatures(feature));
+            }
         }
 
         public static class Selections

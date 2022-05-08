@@ -82,6 +82,18 @@ namespace WraithMods
                 "Adds the Bladed Brush feat, and the accompanying Slashing Grace feat",
                 ref Settings.useBladedBrush);
 
+            AddGUIOption("Guided Hand Feat",
+                "Adds the Guided Hand feat",
+                ref Settings.useGuidedHand);
+
+            AddGUIOption("Dual Path Mythic Ability",
+                "Adds the Dual Path mythic ability, allowing the main character to select an additional First Ascension ability",
+                ref Settings.useDualPath);
+
+            AddGUIOption("Way of the Shooting Star Feat",
+                "Adds the Way of the Shooting Star feat",
+                ref Settings.useDualPath);
+
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
             //GUILayout.Space(100);

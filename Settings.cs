@@ -14,6 +14,9 @@ namespace WraithMods
         public bool useRavenerHunter = true;
         public bool useBlastingBracers = true;
         public bool useBladedBrush = true;
+        public bool useGuidedHand = true;
+        public bool useDualPath = true;
+        public bool useWayOfTheShootingStar = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
