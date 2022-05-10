@@ -4,6 +4,7 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers.Mechanics.Facts;
 using System;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -25,7 +26,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 

@@ -6,6 +6,14 @@ using Kingmaker.Utility;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using HarmonyLib;
+using Kingmaker.Blueprints.Classes.Prerequisites;
+using Kingmaker.ElementsSystem;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Mechanics.Components;
+using System.Data;
+using static Kingmaker.Blueprints.Classes.Prerequisites.Prerequisite;
 
 namespace WraithMods.Utilities
 {
@@ -194,6 +202,56 @@ namespace WraithMods.Utilities
             UIGroup uiGroup = new UIGroup();
             features.ForEach(f => uiGroup.Features.Add(f));
             return uiGroup;
+        }
+
+        public static void AddPrerequisite<T>(this BlueprintFeature obj, Action<T> init = null) where T : Prerequisite, new()
+        {
+            obj.AddPrerequisites(Tools.Create(init));
+        }
+        /// <summary>
+        /// Adds new Prerequisites to the feature and runs any applicable special case logic for thier types. 
+        /// </summary>
+        /// <typeparam name="T">
+        /// Type of prerequisite to add.
+        /// </typeparam>
+        /// <param name="obj"></param>
+        /// <param name="prerequisites">
+        /// Prerequisites to add to the feature.
+        /// </param>
+        public static void AddPrerequisites<T>(this BlueprintFeature obj, params T[] prerequisites) where T : Prerequisite
+        {
+            foreach (var prerequisite in prerequisites)
+            {
+                obj.AddComponent(prerequisite);
+                switch (prerequisite)
+                {
+                    case PrerequisiteFeature p:
+                        var feature = p.Feature;
+                        if (feature.IsPrerequisiteFor == null) { feature.IsPrerequisiteFor = new List<BlueprintFeatureReference>(); }
+                        if (!feature.IsPrerequisiteFor.Contains(obj.ToReference<BlueprintFeatureReference>()))
+                        {
+                            feature.IsPrerequisiteFor.Add(obj.ToReference<BlueprintFeatureReference>());
+                        }
+                        break;
+                    case PrerequisiteFeaturesFromList p:
+                        var features = p.Features;
+                        features.ForEach(f => {
+                            if (f.IsPrerequisiteFor == null) { f.IsPrerequisiteFor = new List<BlueprintFeatureReference>(); }
+                            if (!f.IsPrerequisiteFor.Contains(obj.ToReference<BlueprintFeatureReference>()))
+                            {
+                                f.IsPrerequisiteFor.Add(obj.ToReference<BlueprintFeatureReference>());
+                            }
+                        });
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public static void TemporaryContext<T>(this T obj, Action<T> run)
+        {
+            run?.Invoke(obj);
         }
 
         public static class Selections

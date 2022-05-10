@@ -68,7 +68,7 @@ namespace WraithMods.NewContent.Archetypes
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 

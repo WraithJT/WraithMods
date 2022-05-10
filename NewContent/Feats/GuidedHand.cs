@@ -45,7 +45,7 @@ namespace WraithMods.NewContent.Feats
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
             public static void PatchGuidedHand()
@@ -53,7 +53,7 @@ namespace WraithMods.NewContent.Feats
                 string atheismGUID = "92c0d2da0a836ce418a267093c09ca54";
                 string[] ghFeats = CreateGHFeats();
 
-                FeatureSelectionConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
+                var GuidedHand = FeatureSelectionConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey, guidedHandDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey, guidedHandDescription))
                     .SetFeatureTags(FeatureTag.Attack)

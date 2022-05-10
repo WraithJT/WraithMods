@@ -27,7 +27,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 
@@ -46,7 +46,7 @@ namespace WraithMods.Patches
                 //Build new prerequisite based off of requiring 1 Shaman Spirit
                 string shamanSPiritSelectionGUID = "00c8c566d1825dd4a871250f35285982";
                 PrerequisiteFeaturesFromList prerequisiteFeaturesFromList = new();
-                prerequisiteFeaturesFromList.name = "";
+                prerequisiteFeaturesFromList.name = "$PrerequisiteFeaturesFromList$7AACEA2A-F7C0-4AC0-81CA-A299D46B1D35";
                 prerequisiteFeaturesFromList.Group = Prerequisite.GroupType.All;
                 prerequisiteFeaturesFromList.CheckInProgression = false;
                 prerequisiteFeaturesFromList.HideInUI = false;

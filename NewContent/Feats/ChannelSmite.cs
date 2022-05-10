@@ -44,7 +44,7 @@ namespace WraithMods.NewContent.Feats
 
                 try { //PatchChannelSmite();
                       }
-                catch (Exception ex) { Main.logger.Log(ex.ToString()); }
+                catch (Exception ex) { Tools.LogMessage("EXCEPTION: " + ex.ToString()); }
             }
             public static void PatchChannelSmite()
             {

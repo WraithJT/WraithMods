@@ -46,7 +46,7 @@ namespace WraithMods
             GUILayout.EndHorizontal();
 
             AddGUIOption("Truly Everlasting Judgment",
-                "Modifies Judgments to be usable out of combat",
+                "Modifies Judgments to be usable out of combat and last until disabled",
                 ref Settings.useTrulyEverlastingJudgment);
 
             AddGUIOption("Incense Fog Changes",
@@ -92,7 +92,15 @@ namespace WraithMods
 
             AddGUIOption("Way of the Shooting Star Feat",
                 "Adds the Way of the Shooting Star feat",
-                ref Settings.useDualPath);
+                ref Settings.useWayOfTheShootingStar);
+
+            AddGUIOption("Companion Ascension",
+                "Adds 2 extra Mythic options for companions at Mythic Ranks 4 and 8",
+                ref Settings.useCompanionAscension);
+
+            AddGUIOption("Extra Mythic Feat",
+                "Adds the Extra Mythic Feat option during Mythic Ability selections",
+                ref Settings.useExtraMythicFeat);
 
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));

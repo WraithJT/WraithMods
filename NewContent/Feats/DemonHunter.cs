@@ -4,10 +4,35 @@ using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
 using WraithMods.Utilities;
 using Kingmaker.Blueprints;
+using Kingmaker.EntitySystem.Stats;
+using Kingmaker.Enums;
+using Kingmaker;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
+using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.ElementsSystem;
+using Kingmaker.EntitySystem.Entities;
+using Kingmaker.Enums.Damage;
+using Kingmaker.PubSubSystem;
+using Kingmaker.RuleSystem;
+using Kingmaker.RuleSystem.Rules;
+using Kingmaker.RuleSystem.Rules.Damage;
+using Kingmaker.UnitLogic.Abilities;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.UnitLogic.Mechanics.Actions;
+using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
+using Kingmaker.Utility;
+using BlueprintCore.Blueprints.Configurators.Facts;
+using Kingmaker.Blueprints.Facts;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -19,10 +44,12 @@ namespace WraithMods.NewContent.Feats
         private static readonly string DisplayNameKey = "DemonHunterName";
         private static readonly string Description =
             "You gain a +2 morale bonus on all attack rolls made against creatures with the demon subtype " +
-            "and a +2 morale bonus on caster level checks to penetrate spell resistance.";
+            "and a +2 bonus on caster level checks to penetrate spell resistance.";
         private static readonly string DescriptionKey = "DemonHunterDescription";
 
         private static readonly string BasicFeatSelectionGuid = "247a4068-296e-8be4-2890-143f451b4b45";
+
+        private static readonly string AngelMythicClass = "a5a9fe8f663d701488bd1db8ea40484e";
 
 
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
@@ -35,20 +62,32 @@ namespace WraithMods.NewContent.Feats
                 Initialized = true;
 
                 try { PatchDemonHunter(); }
-                catch (Exception ex) { Main.logger.Log(ex.ToString()); }
+                catch (Exception ex) { Tools.LogMessage("EXCEPTION: " + ex.ToString()); }
             }
             public static void PatchDemonHunter()
             {
                 string subtypeDemon = "dc960a234d365cb4f905bdc5937e623a";
+                var DemonHunter = FeatureConfigurator.New(FeatName, FeatGuid)
+                        .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
+                        .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
+                        .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
+                        .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                        .AddAttackBonusAgainstFactOwner(
+                            attackBonus: 2,
+                            descriptor: ModifierDescriptor.Morale,
+                            checkedFact: subtypeDemon)
+                        .AddSpellPenetrationBonus(
+                            value: 2,
+                            descriptor: ModifierDescriptor.UntypedStackable)
+                        .Configure();
 
-                FeatureConfigurator.New(FeatName, FeatGuid)
-                    .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
-                    .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
-                    .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
-                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
-                    .AddAttackBonusAgainstFactOwner(attackBonus: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale, checkedFact: subtypeDemon)
-                    .AddSpellPenetrationBonus(value: 2, descriptor: Kingmaker.Enums.ModifierDescriptor.Morale)
-                    .Configure();
+                DemonHunter.AddPrerequisite<PrerequisiteStatValue>(c =>
+                {
+                    c.Stat = StatType.SkillLoreReligion;
+                    c.Value = 6;
+                });
+
+
 
                 if (Main.Settings.useDemonHunter == false) { return; }
                 Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(FeatGuid));

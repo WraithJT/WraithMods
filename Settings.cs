@@ -17,6 +17,8 @@ namespace WraithMods
         public bool useGuidedHand = true;
         public bool useDualPath = true;
         public bool useWayOfTheShootingStar = true;
+        public bool useCompanionAscension = true;
+        public bool useExtraMythicFeat = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {

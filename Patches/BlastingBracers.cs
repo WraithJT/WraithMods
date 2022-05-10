@@ -7,6 +7,7 @@ using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Localization;
 using System;
 using System.Linq;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -28,7 +29,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 

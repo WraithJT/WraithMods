@@ -3,6 +3,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using System;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -24,7 +25,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 
@@ -43,6 +44,7 @@ namespace WraithMods.Patches
                 //{
                 //    return;
                 //}
+                
 
                 string[] judgmentGUIDs = new string[] {
                     "ddffa896d4605a44f95baa6d0d350828",

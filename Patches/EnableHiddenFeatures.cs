@@ -9,6 +9,7 @@ using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.Utility;
 using System;
 using System.Linq;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -30,7 +31,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 

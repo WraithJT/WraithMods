@@ -2,6 +2,7 @@
 using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
+using WraithMods.Utilities;
 
 namespace WraithMods.Patches
 {
@@ -23,7 +24,7 @@ namespace WraithMods.Patches
                 }
                 catch (Exception ex)
                 {
-                    Main.logger.Log(ex.ToString());
+                    Tools.LogMessage("EXCEPTION: " + ex.ToString());
                 }
             }
 
