@@ -17,8 +17,6 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Mechanics.Components;
 
-// Taking Dual Path at MR3+ adds nothing to character, but shows up in Mythic Path screen
-
 namespace WraithMods.NewContent.Mythics
 {
     class DualPath
@@ -67,6 +65,7 @@ namespace WraithMods.NewContent.Mythics
         };
 
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
+        [HarmonyPriority(Priority.First)]
         static class BlueprintsCache_Init_patch
         {
             static bool Initialized;
@@ -81,41 +80,34 @@ namespace WraithMods.NewContent.Mythics
             }
             public static void PatchDualPath()
             {
-                //PrerequisiteFeaturesFromList prerequisiteFeaturesFromList = new();
-                //prerequisiteFeaturesFromList.name = "$PrerequisiteFeaturesFromList$B6112723-2E2A-4C29-9F3C-B2BBEBAE4E35";
-                //prerequisiteFeaturesFromList.Amount = 1;
-                //prerequisiteFeaturesFromList.Group = Prerequisite.GroupType.Any;
-                //prerequisiteFeaturesFromList.m_Features = FirstAscensionFeatureGUIDS;
-
                 BlueprintFeatureSelection blueprintFeatureSelection = FeatureSelectionConfigurator.New(FeatName, FeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
                     .SetFeatureGroups(FeatureGroup.MythicAbility)
                     .PrerequisiteNoFeature(FeatGuid, Prerequisite.GroupType.All)
-                    //.PrerequisiteMythicLevel(3)
                     .Configure();
                 blueprintFeatureSelection.m_Features = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(FirstAscensionSelection).m_AllFeatures;
                 blueprintFeatureSelection.m_AllFeatures = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(FirstAscensionSelection).m_AllFeatures;
-                //blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteFeaturesFromList>(c =>
-                //{
-                //    c.m_Features = FirstAscensionFeatureGUIDS;
-                //    c.Group = Prerequisite.GroupType.All;
-                //}));
-                //foreach (string s in MythicClassGUIDS)
-                //{
-                //    blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteClassLevel>(c =>
-                //    {
-                //        c.m_CharacterClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(s).ToReference<BlueprintCharacterClassReference>();
-                //        c.Level = 1;
-                //        c.Group = Prerequisite.GroupType.Any;
-                //    }));
-                //}
-                //blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteClassLevel>(c =>
-                //{
-                //    c.m_CharacterClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(MythicCompanionClass).ToReference<BlueprintCharacterClassReference>();
-                //    c.Level = 4;
-                //    c.Group = Prerequisite.GroupType.Any;
-                //}));
+                blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteFeaturesFromList>(c =>
+                {
+                    c.m_Features = FirstAscensionFeatureGUIDS;
+                    c.Group = Prerequisite.GroupType.All;
+                }));
+                foreach (string s in MythicClassGUIDS)
+                {
+                    blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteClassLevel>(c =>
+                    {
+                        c.m_CharacterClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(s).ToReference<BlueprintCharacterClassReference>();
+                        c.Level = 3;
+                        c.Group = Prerequisite.GroupType.Any;
+                    }));
+                }
+                blueprintFeatureSelection.AddPrerequisites(Tools.Create<PrerequisiteClassLevel>(c =>
+                {
+                    c.m_CharacterClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(MythicCompanionClass).ToReference<BlueprintCharacterClassReference>();
+                    c.Level = 8;
+                    c.Group = Prerequisite.GroupType.Any;
+                }));
 
                 if (Main.Settings.useDualPath == false) { return; }
                 AddPrereqsToFirstAscensions();
@@ -125,11 +117,6 @@ namespace WraithMods.NewContent.Mythics
 
             static void AddPrereqsToFirstAscensions()
             {
-                //var mythicCompanionClassReference = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(MythicCompanionClass).ToReference<BlueprintCharacterClassReference>();
-                //BlueprintProgression.ClassWithLevel classWithLevel = new();
-                //classWithLevel.m_Class = mythicCompanionClassReference;
-                //classWithLevel.AdditionalLevel = 0;
-
                 foreach (string s in FirstAscensionProgressionGUIDS)
                 {
                     var feature = ResourcesLibrary.TryGetBlueprint<BlueprintProgression>(s);
@@ -145,40 +132,8 @@ namespace WraithMods.NewContent.Mythics
                         c.m_Feature = feature.ToReference<BlueprintFeatureReference>();
                         c.Group = Prerequisite.GroupType.All;
                     }));
-
-                    //feature.m_Classes = feature.m_Classes.AppendToArray(classWithLevel);
+                    feature.GiveFeaturesForPreviousLevels = true;
                 }
-
-                //var tricksterFirstAscensionAbility = ResourcesLibrary.TryGetBlueprint<BlueprintAbility>("918e6e7085d81094790e806a49922694");
-                //BlueprintComponent[] contextRankConfig = tricksterFirstAscensionAbility.ComponentsArray.Where(c => (c is ContextRankConfig)).ToArray();
-                //foreach (ContextRankConfig c in contextRankConfig)
-                //{
-                //    c.m_Class = c.m_Class.AppendToArray(mythicCompanionClassReference);
-                //}
-
-                //var aeonFirstAscentionResource = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityResource>("4db463bcf37d6014eaa23d3219703a9b");
-                //aeonFirstAscentionResource.m_MaxAmount.m_Class = aeonFirstAscentionResource.m_MaxAmount.m_Class.AppendToArray(mythicCompanionClassReference);
-
-                //var angelFirstAscentionResource = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityResource>("6da18ecb21a24814eb79ab075a0b6d5e");
-                //angelFirstAscentionResource.m_MaxAmount.m_ClassDiv = angelFirstAscentionResource.m_MaxAmount.m_ClassDiv.AppendToArray(mythicCompanionClassReference);
-                //var angelFirstAscentionAbility = ResourcesLibrary.TryGetBlueprint<BlueprintAbility>("f86857af1c584e248b9284654f31d39c");
-                //contextRankConfig = angelFirstAscentionAbility.ComponentsArray.Where(c => (c is ContextRankConfig)).ToArray();
-                //foreach (ContextRankConfig c in contextRankConfig)
-                //{
-                //    c.m_Class = c.m_Class.AppendToArray(mythicCompanionClassReference);
-                //}
-
-                //var azataFirstAscensionResource = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityResource>("8419c285e922c1044893472bcbd3d3bf");
-                //azataFirstAscensionResource.m_MaxAmount.m_ClassDiv = azataFirstAscensionResource.m_MaxAmount.m_ClassDiv.AppendToArray(mythicCompanionClassReference);
-                //var azataFirstAscensionAbility = ResourcesLibrary.TryGetBlueprint<BlueprintAbility>("5d5f0c9b274bab44eb01272c8fcf251d");
-                //contextRankConfig = azataFirstAscensionAbility.ComponentsArray.Where(c => (c is ContextRankConfig)).ToArray();
-                //foreach (ContextRankConfig c in contextRankConfig)
-                //{
-                //    c.m_Class = c.m_Class.AppendToArray(mythicCompanionClassReference);
-                //}
-
-                //var lichChannelNegativeResource = ResourcesLibrary.TryGetBlueprint<BlueprintAbilityResource>("e5ef1aae31818f041bccbc9fd37662bf");
-                //lichChannelNegativeResource.m_MaxAmount.m_Class = lichChannelNegativeResource.m_MaxAmount.m_Class.AppendToArray(mythicCompanionClassReference);
             }
         }
     }

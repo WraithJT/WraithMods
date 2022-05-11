@@ -25,8 +25,7 @@ namespace WraithMods.NewContent.Mythics
         private static readonly string ExtraMythicFeatMythicAbilityGuid = "C916448F-690D-4F4E-9D82-4D6F376E621D";
         private static readonly string ExtraMythicFeatMythicAbilityDisplayName = "Extra Mythic Feat";
         private static readonly string ExtraMythicFeatMythicAbilityDisplayNameKey = "ExtraMythicFeatName";
-        private static readonly string ExtraMythicFeatMythicAbilityDescription =
-            "You gain a bonus mythic feat.";
+        private static readonly string ExtraMythicFeatMythicAbilityDescription = "You gain a bonus mythic feat.";
         private static readonly string ExtraMythicFeatMythicAbilityDescriptionKey = "ExtraMythicFeatDescription";
 
         private static readonly string MythicAbilitySelection = "ba0e5a900b775be4a99702f1ed08914d";
@@ -35,6 +34,7 @@ namespace WraithMods.NewContent.Mythics
         private static readonly string MythicFeatSelection = "9ee0f6745f555484299b0a1563b99d81";
 
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
+        [HarmonyPriority(Priority.High)]
         static class BlueprintsCache_Init_patch
         {
             static bool Initialized;

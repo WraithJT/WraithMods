@@ -11,6 +11,8 @@ using Kingmaker.Utility;
 using System;
 using System.Linq;
 using WraithMods.Utilities;
+using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.UnitLogic.Parts;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -40,6 +42,7 @@ namespace WraithMods.NewContent.Feats
         private static readonly string sgbladedBrushDescriptionKey = "SlashingGraceBBDescription";
 
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
+        [HarmonyPriority(Priority.First)]
         static class BlueprintsCache_Init_patch
         {
             static bool Initialized;
@@ -81,7 +84,7 @@ namespace WraithMods.NewContent.Feats
                     .AddRecommendationWeaponTypeFocus(WeaponRangeType.Melee)
                     .Configure();
                 
-                FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
+                var sgBladedBrush = FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(sgbladedBrushDisplayNameKey, sgbladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(sgbladedBrushDescriptionKey, sgbladedBrushDescription))
                     .SetFeatureTags(FeatureTag.Attack)
@@ -90,6 +93,7 @@ namespace WraithMods.NewContent.Feats
                         StatType.Dexterity, 
                         WeaponCategory.Glaive, 
                         twoHandedBonus: true)
+                    .AddDamageGrace()
                     .PrerequisiteFeature(bladedBrushFeatGuid)
                     .AddRecommendationHasFeature(bladedBrushFeatGuid)
                     .AddRecommendationStatComparison(StatType.Dexterity, StatType.Strength, 4)
