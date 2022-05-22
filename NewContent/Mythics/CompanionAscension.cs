@@ -116,8 +116,8 @@ namespace WraithMods.NewContent.Mythics
                 if (Initialized) return;
                 Initialized = true;
 
-                try { PatchCompanionAscension(); }
-                catch (Exception ex) { Tools.LogMessage("EXCEPTION: " + ex.ToString()); }
+                //try { PatchCompanionAscension(); }
+                //catch (Exception ex) { Tools.LogMessage("EXCEPTION: " + ex.ToString()); }
             }
             public static void PatchCompanionAscension()
             {
