@@ -13,6 +13,7 @@ using System.Linq;
 using WraithMods.Utilities;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.Parts;
+using Kingmaker.Blueprints.Items.Weapons;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -64,39 +65,46 @@ namespace WraithMods.NewContent.Feats
             public static void PatchBladedBrush()
             {
                 string glaiveGUID = "7a14a1b224cd173449cb7ffc77d5f65c";
+                BlueprintWeaponTypeReference glaiveType = ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(glaiveGUID).ToReference<BlueprintWeaponTypeReference>();
                 string shelynGUID = "b382afa31e4287644b77a8b30ed4aa0b";
                 string weaponFocusGUID = "1e1f627d26ad36f43bbd26cc2bf8ac7e";
 
                 FeatureConfigurator.New(bladedBrushFeatName, bladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(bladedBrushDisplayNameKey, bladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(bladedBrushDescriptionKey, bladedBrushDescription))
-                    .SetFeatureTags(FeatureTag.Attack)
-                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                    .AddFeatureTagsComponent(FeatureTag.Attack)
+                    .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                     .AddAttackStatReplacement(
                         replacementStat: StatType.Dexterity,
                         subCategory: WeaponSubCategory.Melee,
                         checkWeaponTypes: true,
-                        weaponTypes: new string[] { glaiveGUID })
-                    .PrerequisiteFeature(shelynGUID)
-                    .PrerequisiteParameterizedWeaponFeature(weaponFocusGUID, WeaponCategory.Glaive)
-                    .AddRecommendationStatComparison(StatType.Dexterity, StatType.Strength, 4)
+                        weaponTypes: new() { glaiveType })
+                    .AddPrerequisiteFeature(shelynGUID)
+                    .AddPrerequisiteParametrizedWeaponFeature(weaponFocusGUID, WeaponCategory.Glaive)
+                    .AddRecommendationStatComparison(
+                        higherStat: StatType.Dexterity, 
+                        lowerStat: StatType.Strength, 
+                        diff: 4)
                     .AddRecommendationHasFeature(shelynGUID)
-                    .AddRecommendationWeaponTypeFocus(WeaponRangeType.Melee)
+                    .AddRecommendationWeaponTypeFocus(weaponRangeType: WeaponRangeType.Melee)
                     .Configure();
                 
                 var sgBladedBrush = FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(sgbladedBrushDisplayNameKey, sgbladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(sgbladedBrushDescriptionKey, sgbladedBrushDescription))
-                    .SetFeatureTags(FeatureTag.Attack)
-                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                    .AddFeatureTagsComponent(FeatureTag.Attack)
+                    .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                     .AddWeaponTypeDamageStatReplacement(
-                        StatType.Dexterity, 
-                        WeaponCategory.Glaive, 
+                        stat: StatType.Dexterity, 
+                        category: WeaponCategory.Glaive, 
                         twoHandedBonus: true)
                     .AddDamageGrace()
-                    .PrerequisiteFeature(bladedBrushFeatGuid)
+                    .AddPrerequisiteFeature(bladedBrushFeatGuid)
                     .AddRecommendationHasFeature(bladedBrushFeatGuid)
-                    .AddRecommendationStatComparison(StatType.Dexterity, StatType.Strength, 4)
+                    .AddRecommendationStatComparison(
+                        higherStat: StatType.Dexterity, 
+                        lowerStat: StatType.Strength, 
+                        diff: 4)
                     .Configure();
 
                 if (Main.Settings.useBladedBrush == false) { return; }

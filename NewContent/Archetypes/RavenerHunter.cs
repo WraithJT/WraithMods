@@ -124,8 +124,8 @@ namespace WraithMods.NewContent.Archetypes
                 });
 
                 var ravenerHunterArchetype = ArchetypeConfigurator.New(RavenerHunterName, RavenerHunterGUID)
-                    .SetDisplayName(LocalizationTool.CreateString(RavenerHunterDisplayNameKey, RavenerHunterDisplayName, false))
-                    .SetDescription(LocalizationTool.CreateString(RavenerHunterDescriptionKey, RavenerHunterDescription))
+                    .SetLocalizedName(LocalizationTool.CreateString(RavenerHunterDisplayNameKey, RavenerHunterDisplayName, false))
+                    .SetLocalizedDescription(LocalizationTool.CreateString(RavenerHunterDescriptionKey, RavenerHunterDescription))
                     .Configure();
                 ravenerHunterArchetype.RemoveFeatures = new LevelEntry[]
                 {

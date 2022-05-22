@@ -70,8 +70,8 @@ namespace WraithMods.NewContent.Feats
                 var DemonHunter = FeatureConfigurator.New(FeatName, FeatGuid)
                         .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
                         .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
-                        .SetFeatureTags(FeatureTag.Attack, FeatureTag.Magic)
-                        .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                        .AddFeatureTagsComponent(FeatureTag.Attack)
+                        .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                         .AddAttackBonusAgainstFactOwner(
                             attackBonus: 2,
                             descriptor: ModifierDescriptor.Morale,

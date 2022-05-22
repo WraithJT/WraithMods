@@ -1,7 +1,5 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
-using BlueprintCore.Blueprints.Configurators.Abilities;
-using BlueprintCore.Blueprints.Components;
 using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
@@ -83,8 +81,8 @@ namespace WraithMods.NewContent.Mythics
                 BlueprintFeatureSelection blueprintFeatureSelection = FeatureSelectionConfigurator.New(FeatName, FeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(DisplayNameKey, DisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(DescriptionKey, Description))
-                    .SetFeatureGroups(FeatureGroup.MythicAbility)
-                    .PrerequisiteNoFeature(FeatGuid, Prerequisite.GroupType.All)
+                    .SetGroups(FeatureGroup.MythicAbility)
+                    .AddPrerequisiteNoFeature(FeatGuid)
                     .Configure();
                 blueprintFeatureSelection.m_Features = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(FirstAscensionSelection).m_AllFeatures;
                 blueprintFeatureSelection.m_AllFeatures = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(FirstAscensionSelection).m_AllFeatures;
@@ -111,8 +109,8 @@ namespace WraithMods.NewContent.Mythics
 
                 if (Main.Settings.useDualPath == false) { return; }
                 AddPrereqsToFirstAscensions();
-                FeatureSelectionConfigurator.For(MythicAbilitySelection).AddToFeatures(FeatName).Configure();
-                FeatureSelectionConfigurator.For(ExtraMythicAbilityMythicFeat).AddToFeatures(FeatName).Configure();
+                FeatureSelectionConfigurator.For(MythicAbilitySelection).AddToAllFeatures(FeatName).Configure();
+                FeatureSelectionConfigurator.For(ExtraMythicAbilityMythicFeat).AddToAllFeatures(FeatName).Configure();
             }
 
             static void AddPrereqsToFirstAscensions()

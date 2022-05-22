@@ -137,8 +137,8 @@ namespace WraithMods.NewContent.Archetypes
                 BlueprintFeature dodge = ResourcesLibrary.TryGetBlueprint<BlueprintFeature>("97e216dbb46ae3c4faef90cf6bbe6fd5");
 
                 ArchetypeConfigurator.New(name, guid)
-                    .SetDisplayName(LocalizationTool.CreateString(nameKey, name, false))
-                    .SetDescription(LocalizationTool.CreateString(descKey, desc))
+                    .SetLocalizedName(LocalizationTool.CreateString(nameKey, name, false))
+                    .SetLocalizedDescription(LocalizationTool.CreateString(descKey, desc))
                     .Configure();
 
                 BlueprintGuid blueprintGuid = new(System.Guid.Parse("3E677E18-9D5D-45B6-B499-1A8B93333E85"));

@@ -1,5 +1,4 @@
-﻿using BlueprintCore.Blueprints.Configurators.Buffs;
-using BlueprintCore.Blueprints.Configurators.Classes;
+﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
 using BlueprintCore.Utils;
@@ -12,6 +11,7 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.Utility;
 using System;
 using WraithMods.Utilities;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 
 namespace WraithMods.Patches
 {
@@ -47,7 +47,7 @@ namespace WraithMods.Patches
                 //Remove "Incense Fog - Increased Range" from level-up choices
                 string incenseSynthesizerIncenseFogSelectionGUID = "73d5950937bf0aa428e82c54c968f7e6";
                 string incenseFogIncreasedRangeFeatureGUID = "1cd39502119e97f4caa72e7e53ce5ee9";
-                FeatureSelectionConfigurator.For(incenseSynthesizerIncenseFogSelectionGUID).RemoveFromFeatures(incenseFogIncreasedRangeFeatureGUID).Configure();
+                FeatureSelectionConfigurator.For(incenseSynthesizerIncenseFogSelectionGUID).RemoveFromAllFeatures(incenseFogIncreasedRangeFeatureGUID).Configure();
 
                 //Modify descriptions to say "30-feet" instead of "15-feet"
                 string incenseFogFeatureGUID = "7614401346b64a8409f7b8c367db488f";
@@ -59,6 +59,7 @@ namespace WraithMods.Patches
                 string descriptionKey = "NewIncenseFogDescription";
                 LocalizedString newDescription = LocalizationTool.CreateString(descriptionKey, newIncenseFogDescription);
                 FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription).Configure();
+                
                 BuffConfigurator.For(incenseFogEffectBuffGUID).SetDescription(newDescription).Configure();
                 ActivatableAbilityConfigurator.For(incenseFogToggleAbilityGUID).SetDescription(newDescription).Configure();
 

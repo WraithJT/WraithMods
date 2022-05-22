@@ -5,11 +5,14 @@ using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
+using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using WraithMods.Utilities;
 
@@ -51,18 +54,18 @@ namespace WraithMods.NewContent.Feats
             public static void PatchGuidedHand()
             {
                 string atheismGUID = "92c0d2da0a836ce418a267093c09ca54";
-                string[] ghFeats = CreateGHFeats();
+                Blueprint<BlueprintFeature, BlueprintFeatureReference>[] ghFeats = CreateGHFeats();
 
                 var GuidedHand = FeatureSelectionConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey, guidedHandDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey, guidedHandDescription))
-                    .SetFeatureTags(FeatureTag.Attack)
-                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
-                    .PrerequisiteNoFeature(atheismGUID)
-                    .PrerequisiteFeaturesFromList(new string[] { ChannelEnergyFeature, ChannelNegativeFeature }, 1)
+                    .AddFeatureTagsComponent(FeatureTag.Attack)
+                    .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                    .AddPrerequisiteNoFeature(atheismGUID)
+                    .AddPrerequisiteFeaturesFromList(new() { ChannelEnergyFeature, ChannelNegativeFeature }, 1)
                     .AddRecommendationHasFeature(WeaponFocusFeature)
-                    .AddRecommendationStatMiminum(StatType.Wisdom, 15)
-                    .AddToFeatures(ghFeats)
+                    .AddRecommendationStatMiminum(stat: StatType.Wisdom, minimalValue: 15)
+                    .AddToAllFeatures(ghFeats)
                     .Configure();
 
                 if (Main.Settings.useGuidedHand == false) { return; }
@@ -70,7 +73,7 @@ namespace WraithMods.NewContent.Feats
             }
         }
 
-        static string[] CreateGHFeats()
+        static Blueprint<BlueprintFeature, BlueprintFeatureReference>[] CreateGHFeats()
         {
             #region deity GUIDs
             string abadarGUID = "6122dacf418611540a3c91e67197ee4e";
@@ -130,7 +133,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandAbadar",
                 FeatGUID = "1B319167-C481-4DB4-A2C5-21B51E9E9C97",
                 WeaponCategory = WeaponSubCategory.Ranged,
-                WeaponTypes = new string[] { lightcrossbowGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(lightcrossbowGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Asmodeus = new()
@@ -140,7 +143,10 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandAsmodeus",
                 FeatGUID = "8D46FF0D-36C7-4A45-B3D3-BBABF63090BE",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { lightmaceGUID, heavymaceGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(lightmaceGUID).ToReference<BlueprintWeaponTypeReference>(),
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavymaceGUID).ToReference<BlueprintWeaponTypeReference>()
+                }
             };
 
             Deity Calistria = new()
@@ -150,7 +156,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandCalistria",
                 FeatGUID = "BEA15A47-96F6-40A6-9CBB-EC5A7726C635",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { rapierGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(rapierGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity CaydenCailean = new()
@@ -160,7 +166,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandCaydenCailean",
                 FeatGUID = "D92C55AB-DFBE-46B7-A57C-F6ACC6012796",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { rapierGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(rapierGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Desna = new()
@@ -170,7 +176,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandDesna",
                 FeatGUID = "4B306421-E777-4FFB-A802-6D74C630401B",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { starknifeGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(starknifeGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Erastil = new()
@@ -180,7 +186,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandErastil",
                 FeatGUID = "6BF8A9B8-073F-4E43-B8F9-5B95F8C568E3",
                 WeaponCategory = WeaponSubCategory.Ranged,
-                WeaponTypes = new string[] { longbowGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(longbowGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Godclaw = new()
@@ -190,7 +196,10 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandGodclaw",
                 FeatGUID = "B39E6150-A432-4D8D-BC0C-2EDCE472E1E0",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { flailGUID, heavyflailGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(flailGUID).ToReference<BlueprintWeaponTypeReference>(),
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavyflailGUID).ToReference<BlueprintWeaponTypeReference>()
+                }
             };
 
             Deity Gorum = new()
@@ -200,7 +209,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandGorum",
                 FeatGUID = "9A7923E4-0D39-4496-9727-94DD37B2D5A9",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { greatswordGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(greatswordGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Gozreh = new()
@@ -210,7 +219,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandGozreh",
                 FeatGUID = "739C0256-7077-4124-9E12-80F36F1F7D5A",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { tridentGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(tridentGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Gyronna = new()
@@ -220,7 +229,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandGyronna",
                 FeatGUID = "2AFFA683-D995-4723-8DCE-A95B96DA08EE",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { daggerGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(daggerGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Iomedae = new()
@@ -230,7 +239,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandIomedae",
                 FeatGUID = "7A825ADE-2846-4369-B84E-6D2AECA88A52",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { longswordGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(longswordGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Irori = new()
@@ -240,7 +249,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandIrori",
                 FeatGUID = "D9406D27-6ACD-403B-A612-78F16E646FA7",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { unarmedGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(unarmedGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Lamashtu = new()
@@ -250,7 +259,10 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandLamashtu",
                 FeatGUID = "C34D5DED-7108-447E-8CE0-8D77FD536EF9",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { falchionGUID, kukriGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(falchionGUID).ToReference<BlueprintWeaponTypeReference>(),
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(kukriGUID).ToReference<BlueprintWeaponTypeReference>()
+                }
             };
 
             Deity Nethys = new()
@@ -260,7 +272,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandNethys",
                 FeatGUID = "3891DCCA-5A35-4327-A75E-EC8F53DC314D",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { quarterstaffGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(quarterstaffGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Norgorber = new()
@@ -270,7 +282,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandNorgorber",
                 FeatGUID = "BC31AD4C-873D-4A1B-89CD-8218BE678F9B",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { shortswordGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(shortswordGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Pharasma = new()
@@ -280,7 +292,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandPharasma",
                 FeatGUID = "72378F40-350C-442B-9BDA-F37FA938B825",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { daggerGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(daggerGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Rovagug = new()
@@ -290,7 +302,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandRovagug",
                 FeatGUID = "A571C7B2-1B5F-4A00-B52A-E3F3A9380859",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { greataxeGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(greataxeGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Sarenrae = new()
@@ -300,7 +312,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandSarenrae",
                 FeatGUID = "870580C6-0592-4370-90FD-265B068465BC",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { scimitarGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(scimitarGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Shelyn = new()
@@ -310,7 +322,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandShelyn",
                 FeatGUID = "9C98EEF9-37A4-4FB0-AA10-F99B7D38E9F5",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { glaiveGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(glaiveGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Torag = new()
@@ -320,7 +332,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandTorag",
                 FeatGUID = "8A1D98F9-E027-423A-82F2-EE9527F1B1B5",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { warhammerGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(warhammerGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity Urgathoa = new()
@@ -330,7 +342,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandUrgathoa",
                 FeatGUID = "7914A9D2-7628-430D-9966-849C9F072E4A",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { scytheGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(scytheGUID).ToReference<BlueprintWeaponTypeReference>() }
             };
 
             Deity ZonKuthon = new()
@@ -340,7 +352,10 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandZonKuthon",
                 FeatGUID = "144B394B-17AD-487A-B493-C212E332842A",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new string[] { flailGUID, heavyflailGUID }
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(flailGUID).ToReference<BlueprintWeaponTypeReference>(),
+                    ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavyflailGUID).ToReference<BlueprintWeaponTypeReference>()
+                }
             };
             #endregion
 
@@ -370,7 +385,7 @@ namespace WraithMods.NewContent.Feats
 
             foreach (Deity d in deities) { ConfigureGHFeat(d); }
 
-            string[] features = new string[] {
+            Blueprint<BlueprintFeature, BlueprintFeatureReference>[] features = new Blueprint<BlueprintFeature, BlueprintFeatureReference>[] {
                 Abadar.FeatGUID,
                 Asmodeus.FeatGUID,
                 Calistria.FeatGUID,
@@ -400,8 +415,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Abadar, guidedHandFeatGuid_Abadar)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Abadar", guidedHandDisplayName + " (Abadar)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Abadar", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Ranged,
@@ -413,8 +428,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Asmodeus, guidedHandFeatGuid_Asmodeus)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Asmodeus", guidedHandDisplayName + " (Asmodeus)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Asmodeus", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -426,8 +441,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Calistria, guidedHandFeatGuid_Calistria)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Calistria", guidedHandDisplayName + " (Calistria)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Calistria", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -440,8 +455,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Cayden, guidedHandFeatGuid_Cayden)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Cayden", guidedHandDisplayName + " (Cayden Cailean)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Cayden", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -453,8 +468,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Desna, guidedHandFeatGuid_Desna)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Desna", guidedHandDisplayName + " (Desna)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Desna", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -467,8 +482,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Erastil, guidedHandFeatGuid_Erastil)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Erastil", guidedHandDisplayName + " (Erastil)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Erastil", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Ranged,
@@ -489,8 +504,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Godclaw, guidedHandFeatGuid_Godclaw)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Godclaw", guidedHandDisplayName + " (Godclaw)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Godclaw", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -502,8 +517,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Gorum, guidedHandFeatGuid_Gorum)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Gorum", guidedHandDisplayName + " (Gorum)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Gorum", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -515,8 +530,8 @@ namespace WraithMods.NewContent.Feats
             //        FeatureConfigurator.New(guidedHandFeatName_Gozreh, guidedHandFeatGuid_Gozreh)
             //            .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_Gozreh", guidedHandDisplayName + " (Gozreh)", false))
             //            .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_Gozreh", guidedHandDescription))
-            //            .SetFeatureTags(FeatureTag.Attack)
-            //            .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+            //            .AddFeatureTagsComponent(FeatureTag.Attack)
+            //            .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
             //            .AddAttackStatReplacement(
             //                replacementStat: StatType.Wisdom,
             //                subCategory: WeaponSubCategory.Melee,
@@ -532,14 +547,14 @@ namespace WraithMods.NewContent.Feats
             FeatureConfigurator.New(deity.FeatName, deity.FeatGUID)
                 .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey + "_" + deity.DeityName.Trim(), guidedHandDisplayName + " (" + deity.DeityName + ")", false))
                 .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey + "_" + deity.DeityName.Trim(), guidedHandDescription))
-                .SetFeatureTags(FeatureTag.Attack)
-                .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                .AddFeatureTagsComponent(FeatureTag.Attack)
+                .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                 .AddAttackStatReplacement(
                     replacementStat: StatType.Wisdom,
                     subCategory: deity.WeaponCategory,
                     checkWeaponTypes: true,
                     weaponTypes: deity.WeaponTypes)
-                    .PrerequisiteFeature(deity.DeityGUID)
+                    .AddPrerequisiteFeature(deity.DeityGUID)
                 .Configure();
         }
 
@@ -550,7 +565,7 @@ namespace WraithMods.NewContent.Feats
             public string FeatName;
             public string FeatGUID;
             public WeaponSubCategory WeaponCategory;
-            public string[] WeaponTypes;
+            public List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> WeaponTypes;
         }
     }
 }

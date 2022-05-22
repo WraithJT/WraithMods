@@ -1,7 +1,5 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
-using BlueprintCore.Blueprints.Configurators.Abilities;
-using BlueprintCore.Blueprints.Components;
 using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
@@ -52,7 +50,7 @@ namespace WraithMods.NewContent.Mythics
                 BlueprintFeatureSelection ExtraMythicFeatMythicAbility = FeatureSelectionConfigurator.New(ExtraMythicFeatMythicAbilityName, ExtraMythicFeatMythicAbilityGuid)
                     .SetDisplayName(LocalizationTool.CreateString(ExtraMythicFeatMythicAbilityDisplayNameKey, ExtraMythicFeatMythicAbilityDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(ExtraMythicFeatMythicAbilityDescriptionKey, ExtraMythicFeatMythicAbilityDescription))
-                    .SetFeatureGroups(FeatureGroup.MythicAbility)
+                    .SetGroups(FeatureGroup.MythicAbility)
                     .SetIcon(ExtraMythicAbilityMythicFeat.Icon)
                     .Configure();
                 ExtraMythicFeatMythicAbility.m_AllFeatures = ResourcesLibrary.TryGetBlueprint<BlueprintFeatureSelection>(MythicFeatSelection)
@@ -62,7 +60,7 @@ namespace WraithMods.NewContent.Mythics
                         )).ToArray();
 
                 if (Main.Settings.useDualPath == false) { return; }
-                FeatureSelectionConfigurator.For(MythicAbilitySelection).AddToFeatures(ExtraMythicFeatMythicAbilityName).Configure();
+                FeatureSelectionConfigurator.For(MythicAbilitySelection).AddToAllFeatures(ExtraMythicFeatMythicAbilityName).Configure();
             }
         }
     }

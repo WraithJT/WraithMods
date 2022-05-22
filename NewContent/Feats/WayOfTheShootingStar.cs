@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using WraithMods.Utilities;
 using Kingmaker.UnitLogic.Alignments;
+using Kingmaker.Blueprints.Items.Weapons;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -48,30 +49,34 @@ namespace WraithMods.NewContent.Feats
             public static void PatchWayOfTheShootingStar()
             {
                 string starknifeGUID = "5a939137fc039084580725b2b0845c3f";
+                BlueprintWeaponTypeReference starknifeType = ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(starknifeGUID).ToReference<BlueprintWeaponTypeReference>();
                 string desnaGUID = "2c0a3b9971327ba4d9d85354d16998c1";
                 string bardGUID = "772c83a25e2268e448e841dcd548235f";
 
                 FeatureConfigurator.New(wayOfTheShootingStarFeatName, wayOfTheShootingStarFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(wayOfTheShootingStarDisplayNameKey, wayOfTheShootingStarDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(wayOfTheShootingStarDescriptionKey, wayOfTheShootingStarDescription))
-                    .SetFeatureTags(FeatureTag.Attack)
-                    .SetFeatureGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                    .AddFeatureTagsComponent(FeatureTag.Attack)
+                    .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                     .AddAttackStatReplacement(
                         replacementStat: StatType.Charisma,
                         subCategory: WeaponSubCategory.Melee,
                         checkWeaponTypes: true,
-                        weaponTypes: new string[] { starknifeGUID })
+                        weaponTypes: new() { starknifeType })
                     .AddWeaponTypeDamageStatReplacement(stat: StatType.Charisma, category: WeaponCategory.Starknife)
-                    .PrerequisiteFeature(desnaGUID)
-                    .PrerequisiteClassLevel(bardGUID, 2)
+                    .AddPrerequisiteFeature(desnaGUID)
+                    .AddPrerequisiteClassLevel(bardGUID, 2)
                     .AddPrerequisiteAlignment(AlignmentMaskType.ChaoticGood)
-                    .AddRecommendationStatComparison(StatType.Charisma, StatType.Strength, 4)
+                    .AddRecommendationStatComparison(
+                        higherStat: StatType.Charisma, 
+                        lowerStat: StatType.Strength, 
+                        diff: 4)
                     .AddRecommendationHasFeature(desnaGUID)
-                    .AddRecommendationWeaponTypeFocus(WeaponRangeType.Melee)
+                    .AddRecommendationWeaponTypeFocus(weaponRangeType: WeaponRangeType.Melee)
                     .Configure();
 
                 if (Main.Settings.useWayOfTheShootingStar == false) { return; }
-                FeatureSelectionConfigurator.For(BardTalentSelection).AddToFeatures(wayOfTheShootingStarFeatName).Configure();
+                FeatureSelectionConfigurator.For(BardTalentSelection).AddToAllFeatures(wayOfTheShootingStarFeatName).Configure();
             }
         }
     }
