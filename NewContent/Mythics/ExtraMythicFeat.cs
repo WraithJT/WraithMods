@@ -1,19 +1,13 @@
-﻿using BlueprintCore.Blueprints.Configurators.Classes;
-using BlueprintCore.Blueprints.Configurators.Classes.Selection;
+﻿using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Utils;
 using HarmonyLib;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.Classes.Prerequisites;
 using System;
-using WraithMods.Utilities;
 using System.Linq;
-using Kingmaker.UnitLogic.Abilities;
-using Kingmaker.UnitLogic.Abilities.Blueprints;
-using Kingmaker.UnitLogic.Abilities.Components;
-using Kingmaker.UnitLogic.Mechanics.Components;
+using WraithMods.Utilities;
 
 namespace WraithMods.NewContent.Mythics
 {

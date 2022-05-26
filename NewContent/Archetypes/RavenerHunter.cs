@@ -1,29 +1,13 @@
-﻿using HarmonyLib;
-using Kingmaker.Blueprints.JsonSystem;
-using BlueprintCore.Blueprints.Configurators.Classes;
-using BlueprintCore.Blueprints.Configurators.Classes.Selection;
-using BlueprintCore.Blueprints.Configurators.UnitLogic;
-using BlueprintCore.Blueprints.Configurators.UnitLogic.Customization;
-using BlueprintCore.Blueprints.Configurators.UnitLogic.Properties;
-using BlueprintCore.Blueprints.Configurators.EntitySystem;
-using System;
+﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Utils;
+using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Blueprints.Classes.Selection;
-using Kingmaker.EntitySystem.Stats;
-using Kingmaker.Enums;
-using Kingmaker.Utility;
-using System.Linq;
-using WraithMods.Utilities;
-using Kingmaker.EntitySystem;
-using Kingmaker.UnitLogic;
-using Kingmaker.Blueprints.Classes.Prerequisites;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Kingmaker.UnitLogic.FactLogic;
-using Kingmaker.UnitLogic.Mechanics.Components;
-using BlueprintCore.Conditions.Builder;
+using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.Enums;
+using System;
+using WraithMods.Utilities;
 
 namespace WraithMods.NewContent.Archetypes
 {
@@ -149,7 +133,7 @@ namespace WraithMods.NewContent.Archetypes
                 classWithLevel.AdditionalLevel = 0;
                 OracleRevelationBondedMountProgression.m_Classes = OracleRevelationBondedMountProgression.m_Classes.AppendToArray(classWithLevel);
 
-                //if (Main.Settings.useRavenerHunter == false) { return; }
+                if (Main.Settings.useRavenerHunter == false) { return; }
                 InquisitorClass.m_Archetypes = InquisitorClass.m_Archetypes.AppendToArray(ravenerHunterArchetype.ToReference<BlueprintArchetypeReference>());
 
                 InquisitorClass.Progression.UIGroups = InquisitorClass.Progression.UIGroups.AppendToArray(

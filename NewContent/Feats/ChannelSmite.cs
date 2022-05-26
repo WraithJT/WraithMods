@@ -1,11 +1,10 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
-using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Utils;
 using HarmonyLib;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.Blueprints;
 using System;
 using WraithMods.Utilities;
 
@@ -40,8 +39,9 @@ namespace WraithMods.NewContent.Feats
                 if (Initialized) return;
                 Initialized = true;
 
-                try { //PatchChannelSmite();
-                      }
+                try
+                { //PatchChannelSmite();
+                }
                 catch (Exception ex) { Tools.LogMessage("EXCEPTION: " + ex.ToString()); }
             }
             public static void PatchChannelSmite()

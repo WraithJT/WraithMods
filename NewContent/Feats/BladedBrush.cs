@@ -4,16 +4,12 @@ using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
-using Kingmaker.Utility;
 using System;
-using System.Linq;
 using WraithMods.Utilities;
-using Kingmaker.Designers.Mechanics.Facts;
-using Kingmaker.UnitLogic.Parts;
-using Kingmaker.Blueprints.Items.Weapons;
 
 namespace WraithMods.NewContent.Feats
 {
@@ -82,28 +78,28 @@ namespace WraithMods.NewContent.Feats
                     .AddPrerequisiteFeature(shelynGUID)
                     .AddPrerequisiteParametrizedWeaponFeature(weaponFocusGUID, WeaponCategory.Glaive)
                     .AddRecommendationStatComparison(
-                        higherStat: StatType.Dexterity, 
-                        lowerStat: StatType.Strength, 
+                        higherStat: StatType.Dexterity,
+                        lowerStat: StatType.Strength,
                         diff: 4)
                     .AddRecommendationHasFeature(shelynGUID)
                     .AddRecommendationWeaponTypeFocus(weaponRangeType: WeaponRangeType.Melee)
                     .Configure();
-                
+
                 var sgBladedBrush = FeatureConfigurator.New(sgbladedBrushFeatName, sgbladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(sgbladedBrushDisplayNameKey, sgbladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(sgbladedBrushDescriptionKey, sgbladedBrushDescription))
                     .AddFeatureTagsComponent(FeatureTag.Attack)
                     .SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
                     .AddWeaponTypeDamageStatReplacement(
-                        stat: StatType.Dexterity, 
-                        category: WeaponCategory.Glaive, 
+                        stat: StatType.Dexterity,
+                        category: WeaponCategory.Glaive,
                         twoHandedBonus: true)
                     .AddDamageGrace()
                     .AddPrerequisiteFeature(bladedBrushFeatGuid)
                     .AddRecommendationHasFeature(bladedBrushFeatGuid)
                     .AddRecommendationStatComparison(
-                        higherStat: StatType.Dexterity, 
-                        lowerStat: StatType.Strength, 
+                        higherStat: StatType.Dexterity,
+                        lowerStat: StatType.Strength,
                         diff: 4)
                     .Configure();
 

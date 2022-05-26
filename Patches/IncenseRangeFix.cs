@@ -1,6 +1,7 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints;
@@ -11,7 +12,6 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.Utility;
 using System;
 using WraithMods.Utilities;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 
 namespace WraithMods.Patches
 {
@@ -59,7 +59,7 @@ namespace WraithMods.Patches
                 string descriptionKey = "NewIncenseFogDescription";
                 LocalizedString newDescription = LocalizationTool.CreateString(descriptionKey, newIncenseFogDescription);
                 FeatureConfigurator.For(incenseFogFeatureGUID).SetDescription(newDescription).Configure();
-                
+
                 BuffConfigurator.For(incenseFogEffectBuffGUID).SetDescription(newDescription).Configure();
                 ActivatableAbilityConfigurator.For(incenseFogToggleAbilityGUID).SetDescription(newDescription).Configure();
 

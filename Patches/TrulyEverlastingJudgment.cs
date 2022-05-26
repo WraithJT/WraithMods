@@ -44,7 +44,7 @@ namespace WraithMods.Patches
                 //{
                 //    return;
                 //}
-                
+
 
                 string[] judgmentGUIDs = new string[] {
                     "ddffa896d4605a44f95baa6d0d350828",

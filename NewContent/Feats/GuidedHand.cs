@@ -9,11 +9,8 @@ using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
-using Kingmaker.UnitLogic.FactLogic;
-using Kingmaker.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using WraithMods.Utilities;
 
 namespace WraithMods.NewContent.Feats
@@ -143,7 +140,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandAsmodeus",
                 FeatGUID = "8D46FF0D-36C7-4A45-B3D3-BBABF63090BE",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> {
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(lightmaceGUID).ToReference<BlueprintWeaponTypeReference>(),
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavymaceGUID).ToReference<BlueprintWeaponTypeReference>()
                 }
@@ -196,7 +193,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandGodclaw",
                 FeatGUID = "B39E6150-A432-4D8D-BC0C-2EDCE472E1E0",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> {
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(flailGUID).ToReference<BlueprintWeaponTypeReference>(),
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavyflailGUID).ToReference<BlueprintWeaponTypeReference>()
                 }
@@ -259,7 +256,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandLamashtu",
                 FeatGUID = "C34D5DED-7108-447E-8CE0-8D77FD536EF9",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> {
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(falchionGUID).ToReference<BlueprintWeaponTypeReference>(),
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(kukriGUID).ToReference<BlueprintWeaponTypeReference>()
                 }
@@ -352,7 +349,7 @@ namespace WraithMods.NewContent.Feats
                 FeatName = "GuidedHandZonKuthon",
                 FeatGUID = "144B394B-17AD-487A-B493-C212E332842A",
                 WeaponCategory = WeaponSubCategory.Melee,
-                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> { 
+                WeaponTypes = new List<Blueprint<BlueprintWeaponType, BlueprintWeaponTypeReference>> {
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(flailGUID).ToReference<BlueprintWeaponTypeReference>(),
                     ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(heavyflailGUID).ToReference<BlueprintWeaponTypeReference>()
                 }

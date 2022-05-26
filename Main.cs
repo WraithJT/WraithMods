@@ -87,64 +87,24 @@ namespace WraithMods
                 ref Settings.useGuidedHand);
 
             AddGUIOption("Dual Path Mythic Ability",
-                "Adds the Dual Path mythic ability, allowing the main character to select an additional First Ascension ability",
+                "Adds the Dual Path mythic ability, allowing characters to select an additional First Ascension ability",
                 ref Settings.useDualPath);
 
             AddGUIOption("Way of the Shooting Star Feat",
                 "Adds the Way of the Shooting Star feat",
                 ref Settings.useWayOfTheShootingStar);
 
-            AddGUIOption("Companion Ascension",
-                "Adds 2 extra Mythic options for companions at Mythic Ranks 4 and 8",
-                ref Settings.useCompanionAscension);
-
             AddGUIOption("Extra Mythic Feat",
                 "Adds the Extra Mythic Feat option during Mythic Ability selections",
                 ref Settings.useExtraMythicFeat);
 
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Use Everlasting Judgment (modifies Judgments to be usable out of combat)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useTrulyEverlastingJudgment = GUILayout.Toggle(Settings.useTrulyEverlastingJudgment, $" {Settings.useTrulyEverlastingJudgment}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
+            AddGUIOption("Covenant of the Inheritor Fix",
+                "Adds the Good-Aligned and Cold Iron enchantments to offhand weapons",
+                ref Settings.useCovenantFix);
 
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Use Incense Range Fix (modifies default Incense Fog range to 30 feet and adds effects)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useIncenseRangeFix = GUILayout.Toggle(Settings.useIncenseRangeFix, $" {Settings.useIncenseRangeFix}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
-
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Use Mastodon Fix (readds the Mastodon's secondary Slam attack)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useMastodonFix = GUILayout.Toggle(Settings.useMastodonFix, $" {Settings.useMastodonFix}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
-
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Use Nature's Agony Fix (adjusts Nature's Agony to give +2 DC to sonic spells instead of +1)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useNaturesAgonyFix = GUILayout.Toggle(Settings.useNaturesAgonyFix, $" {Settings.useNaturesAgonyFix}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
-
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Enable Hidden Features (enables some default features hidden or disabled in the blueprints; currenly only enables Rekarth's background and the Green Faith deity for player selection)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useEnableHiddenFeatures = GUILayout.Toggle(Settings.useEnableHiddenFeatures, $" {Settings.useEnableHiddenFeatures}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
-
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("Enable Wildland Shaman Second Spirit (Allows Wildland Shaman to select Second Spirit Mythic Ability)", GUILayout.ExpandWidth(false));
-            //GUILayout.Space(100);
-            //Settings.useWildlandSecondSpirit = GUILayout.Toggle(Settings.useWildlandSecondSpirit, $" {Settings.useWildlandSecondSpirit}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
-
-            //GUILayout.BeginHorizontal();
-            //GUILayout.Label("testing some layout configurations", GUILayout.ExpandWidth(true));
-            //GUILayout.FlexibleSpace();
-            //GUILayout.Label("more layout testing happening here, using ExpandWidth", GUILayout.ExpandWidth(false));
-            //GUILayout.FlexibleSpace();
-            //GUILayout.Toggle(Settings.useWildlandSecondSpirit, $" {Settings.useWildlandSecondSpirit}", GUILayout.ExpandWidth(false));
-            //GUILayout.EndHorizontal();
+            AddGUIOption("Incorporeal Charm Fix",
+                "Sets Incorporeal Charm to recalculate when your Charisma changes",
+                ref Settings.useIncorporealCharmFix);
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)

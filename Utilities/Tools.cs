@@ -1,19 +1,12 @@
 ﻿//Mostly taken from Vek17's Tabletop Tweaks: https://github.com/Vek17/TabletopTweaks-Core
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Utility;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using HarmonyLib;
-using Kingmaker.Blueprints.Classes.Prerequisites;
-using Kingmaker.ElementsSystem;
-using Kingmaker.UnitLogic.Abilities.Blueprints;
-using Kingmaker.UnitLogic.Abilities.Components;
-using Kingmaker.UnitLogic.Mechanics.Components;
-using System.Data;
-using static Kingmaker.Blueprints.Classes.Prerequisites.Prerequisite;
+using System.Linq;
 
 namespace WraithMods.Utilities
 {
@@ -235,7 +228,8 @@ namespace WraithMods.Utilities
                         break;
                     case PrerequisiteFeaturesFromList p:
                         var features = p.Features;
-                        features.ForEach(f => {
+                        features.ForEach(f =>
+                        {
                             if (f.IsPrerequisiteFor == null) { f.IsPrerequisiteFor = new List<BlueprintFeatureReference>(); }
                             if (!f.IsPrerequisiteFor.Contains(obj.ToReference<BlueprintFeatureReference>()))
                             {
