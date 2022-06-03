@@ -47,7 +47,6 @@ namespace WraithMods.Patches
                 {
                     UnitConfigurator.For(s).SetCharisma(15).Configure();
                 }
-
             }
         }
     }

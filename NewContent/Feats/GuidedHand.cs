@@ -53,17 +53,17 @@ namespace WraithMods.NewContent.Feats
 
                 string SelectiveChannel = "fd30c69417b434d47b6b03b9c1f568ff";
 
-                string ChannelEnergySelection = "d332c1748445e8f4f9e92763123e31bd";
-                string ChannelEnergyFeature = "a79013ff4bcd4864cb669622a29ddafb";
-                string ChannelNegativeFeature = "3adb2c906e031ee41a01bfc1d5fb7eea";
-                string ChannelEnergyHospitalerFeature = "a9ab1bbc79ecb174d9a04699986ce8d5";
-                string ChannelEnergyEmpyrealFeature = "7d49d7f590dc9a948b3bd1c8b7979854";
-                string ChannelEnergyPaladinFeature = "cb6d55dda5ab906459d18a435994a760";
-                string ShamanLifeSpiritChannelEnergyFeature = "b8ec9dccc0e7ef74fb4072b0679c2aec";
-                string OracleRevelationChannelFeature = "4bf9a9afadca5304e89bf52f2ac2d236";
-                string WarpriestChannelEnergyFeature = "bd588bc544d2f8547a02bb82ad9f466a";
-                string HexChannelerChannelFeature = "b40316f05d4772e4894688e6743602bd";
-                string LichChannelNegativeFeature = "295dff380fb8ed743bd5c76a30a49a46";
+                //string ChannelEnergySelection = "d332c1748445e8f4f9e92763123e31bd";
+                //string ChannelEnergyFeature = "a79013ff4bcd4864cb669622a29ddafb";
+                //string ChannelNegativeFeature = "3adb2c906e031ee41a01bfc1d5fb7eea";
+                //string ChannelEnergyHospitalerFeature = "a9ab1bbc79ecb174d9a04699986ce8d5";
+                //string ChannelEnergyEmpyrealFeature = "7d49d7f590dc9a948b3bd1c8b7979854";
+                //string ChannelEnergyPaladinFeature = "cb6d55dda5ab906459d18a435994a760";
+                //string ShamanLifeSpiritChannelEnergyFeature = "b8ec9dccc0e7ef74fb4072b0679c2aec";
+                //string OracleRevelationChannelFeature = "4bf9a9afadca5304e89bf52f2ac2d236";
+                //string WarpriestChannelEnergyFeature = "bd588bc544d2f8547a02bb82ad9f466a";
+                //string HexChannelerChannelFeature = "b40316f05d4772e4894688e6743602bd";
+                //string LichChannelNegativeFeature = "295dff380fb8ed743bd5c76a30a49a46";
 
                 string[] channelFeatures = new string[] {
                 "d332c1748445e8f4f9e92763123e31bd",         // ChannelEnergySelection
@@ -79,9 +79,9 @@ namespace WraithMods.NewContent.Feats
                 "295dff380fb8ed743bd5c76a30a49a46"          // LichChannelNegativeFeature
             };
 
-                Blueprint<BlueprintFeatureReference>[] ghFeats = CreateGHFeats();
+                Deity[] deities = CreateGHFeats();
 
-                var GuidedHand = FeatureSelectionConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
+                var _guidedHandConfig = FeatureConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey, guidedHandDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey, guidedHandDescription))
                     .AddFeatureTagsComponent(FeatureTag.Attack)
@@ -106,26 +106,76 @@ namespace WraithMods.NewContent.Feats
                             "b8ec9dccc0e7ef74fb4072b0679c2aec",         // ShamanLifeSpiritChannelEnergyFeature
                             "4bf9a9afadca5304e89bf52f2ac2d236",         // OracleRevelationChannelFeature
                             "bd588bc544d2f8547a02bb82ad9f466a",         // WarpriestChannelEnergyFeature
-                            "b40316f05d4772e4894688e6743602bd",         // HexChannelerChannelFeature
+                            "e02c8a7336a542f4baffa116b6506950",         // WarpriestChannelNegativeFeature
+                            "332c43d3f25fb9a429a42067142c41d5",         // WarpriestShieldbearerChannelEnergyFeature
+                            "5aebdef7644a74e4d8c0d3cd8909de2b",         // WarpriestShieldbearerChannelNegativeFeature
+                            "b423fbf947bc51344bac21752c47471c",         // HexChannelerChannelPositiveFeature
+                            "7c8d5e2ab326fdb4cabafc1c84a5c8e2",         // HexChannelerChannelSelection
+                            "e7237c71cb830364ba2b3eb0a0a53272",         // PurifierSacredScourgeFeature
                             "295dff380fb8ed743bd5c76a30a49a46"          // LichChannelNegativeFeature    
                         },
                         amount: 1,
                         group: Prerequisite.GroupType.Any)
                     .AddRecommendationHasFeature(WeaponFocusFeature)
-                    .AddRecommendationStatMiminum(stat: StatType.Wisdom, minimalValue: 15)
-                    .AddToAllFeatures(ghFeats)
-                    //.AddFeatureIfHasFact(
-                    //    checkedFact: "",
-                    //    feature: "",
-                    //    not: false)
-                    .Configure();
+                    .AddRecommendationStatMiminum(stat: StatType.Wisdom, minimalValue: 15);
+
+
+                foreach (Deity d in deities)
+                {
+                    _guidedHandConfig.AddFeatureIfHasFact(
+                        checkedFact: d.DeityGUID,
+                        feature: d.FeatGUID,
+                        not: false);
+                }
+
+                var GuidedHandFeat = _guidedHandConfig.Configure();
+                //FeatureSelectionConfigurator.New(guidedHandFeatName, guidedHandFeatGuid)
+                //.SetDisplayName(LocalizationTool.CreateString(guidedHandDisplayNameKey, guidedHandDisplayName, false))
+                //.SetDescription(LocalizationTool.CreateString(guidedHandDescriptionKey, guidedHandDescription))
+                //.AddFeatureTagsComponent(FeatureTag.Attack)
+                //.SetGroups(FeatureGroup.Feat, FeatureGroup.CombatFeat)
+                //.AddPrerequisiteNoFeature(
+                //    feature: atheismGUID,
+                //    checkInProgression: false,
+                //    group: Prerequisite.GroupType.All)
+                //.AddPrerequisiteFeature(
+                //    feature: SelectiveChannel,
+                //    checkInProgression: false,
+                //    group: Prerequisite.GroupType.All)
+                //.AddPrerequisiteFeaturesFromList(
+                //    features: new()
+                //    {
+                //        "d332c1748445e8f4f9e92763123e31bd",         // ChannelEnergySelection
+                //        "a79013ff4bcd4864cb669622a29ddafb",         // ChannelEnergyFeature
+                //        "3adb2c906e031ee41a01bfc1d5fb7eea",         // ChannelNegativeFeature
+                //        "a9ab1bbc79ecb174d9a04699986ce8d5",         // ChannelEnergyHospitalerFeature
+                //        "7d49d7f590dc9a948b3bd1c8b7979854",         // ChannelEnergyEmpyrealFeature
+                //        "cb6d55dda5ab906459d18a435994a760",         // ChannelEnergyPaladinFeature
+                //        "b8ec9dccc0e7ef74fb4072b0679c2aec",         // ShamanLifeSpiritChannelEnergyFeature
+                //        "4bf9a9afadca5304e89bf52f2ac2d236",         // OracleRevelationChannelFeature
+                //        "bd588bc544d2f8547a02bb82ad9f466a",         // WarpriestChannelEnergyFeature
+                //        "b40316f05d4772e4894688e6743602bd",         // HexChannelerChannelFeature
+                //        "295dff380fb8ed743bd5c76a30a49a46"          // LichChannelNegativeFeature    
+                //    },
+                //    amount: 1,
+                //    group: Prerequisite.GroupType.Any)
+                //.AddRecommendationHasFeature(WeaponFocusFeature)
+                //.AddRecommendationStatMiminum(stat: StatType.Wisdom, minimalValue: 15)
+                //.AddToAllFeatures(ghFeats)
+                ////.AddFeatureIfHasFact(
+                ////    checkedFact: "",
+                ////    feature: "",
+                ////    not: false)
+                //.Configure();
+
+
 
                 if (Main.Settings.useGuidedHand == false) { return; }
-                Tools.AddAsFeat(GuidedHand);
+                Tools.AddAsFeat(GuidedHandFeat);
             }
         }
 
-        static Blueprint<BlueprintFeatureReference>[] CreateGHFeats()
+        static Deity[] CreateGHFeats()
         {
             #region deity GUIDs
             string abadarGUID = "6122dacf418611540a3c91e67197ee4e";
@@ -437,31 +487,31 @@ namespace WraithMods.NewContent.Feats
 
             foreach (Deity d in deities) { ConfigureGHFeat(d); }
 
-            Blueprint<BlueprintFeatureReference>[] features = new Blueprint<BlueprintFeatureReference>[] {
-                Abadar.FeatGUID,
-                Asmodeus.FeatGUID,
-                Calistria.FeatGUID,
-                CaydenCailean.FeatGUID,
-                Desna.FeatGUID,
-                Erastil.FeatGUID,
-                Godclaw.FeatGUID,
-                Gorum.FeatGUID,
-                Gozreh.FeatGUID,
-                Gyronna.FeatGUID,
-                Iomedae.FeatGUID,
-                Irori.FeatGUID,
-                Lamashtu.FeatGUID,
-                Nethys.FeatGUID,
-                Norgorber.FeatGUID,
-                Pharasma.FeatGUID,
-                Rovagug.FeatGUID,
-                Sarenrae.FeatGUID,
-                Shelyn.FeatGUID,
-                Torag.FeatGUID,
-                Urgathoa.FeatGUID,
-                ZonKuthon.FeatGUID};
+            //Blueprint<BlueprintFeatureReference>[] features = new Blueprint<BlueprintFeatureReference>[] {
+            //    Abadar.FeatGUID,
+            //    Asmodeus.FeatGUID,
+            //    Calistria.FeatGUID,
+            //    CaydenCailean.FeatGUID,
+            //    Desna.FeatGUID,
+            //    Erastil.FeatGUID,
+            //    Godclaw.FeatGUID,
+            //    Gorum.FeatGUID,
+            //    Gozreh.FeatGUID,
+            //    Gyronna.FeatGUID,
+            //    Iomedae.FeatGUID,
+            //    Irori.FeatGUID,
+            //    Lamashtu.FeatGUID,
+            //    Nethys.FeatGUID,
+            //    Norgorber.FeatGUID,
+            //    Pharasma.FeatGUID,
+            //    Rovagug.FeatGUID,
+            //    Sarenrae.FeatGUID,
+            //    Shelyn.FeatGUID,
+            //    Torag.FeatGUID,
+            //    Urgathoa.FeatGUID,
+            //    ZonKuthon.FeatGUID};
 
-            return features;
+            return deities;
 
             #region old way
             //        FeatureConfigurator.New(guidedHandFeatName_Abadar, guidedHandFeatGuid_Abadar)

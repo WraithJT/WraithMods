@@ -104,7 +104,7 @@ namespace WraithMods
 
             AddGUIOption("Plagued Bear Fix",
                 "Corrects the low HP value of the Plagued Bear units",
-                ref Settings.useCovenantFix);
+                ref Settings.usePlaguedBearFix);
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)
