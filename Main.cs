@@ -102,9 +102,9 @@ namespace WraithMods
                 "Adds the Good-Aligned and Cold Iron enchantments to offhand weapons",
                 ref Settings.useCovenantFix);
 
-            AddGUIOption("Incorporeal Charm Fix",
-                "Sets Incorporeal Charm to recalculate when your Charisma changes",
-                ref Settings.useIncorporealCharmFix);
+            AddGUIOption("Plagued Bear Fix",
+                "Corrects the low HP value of the Plagued Bear units",
+                ref Settings.useCovenantFix);
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)

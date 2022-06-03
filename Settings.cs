@@ -19,7 +19,7 @@ namespace WraithMods
         public bool useWayOfTheShootingStar = true;
         public bool useExtraMythicFeat = true;
         public bool useCovenantFix = true;
-        public bool useIncorporealCharmFix = true;
+        public bool usePlaguedBearFix = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
