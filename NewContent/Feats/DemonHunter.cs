@@ -67,7 +67,7 @@ namespace WraithMods.NewContent.Feats
 
 
                 if (Main.Settings.useDemonHunter == false) { return; }
-                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(FeatGuid));
+                Tools.AddAsFeat(DemonHunter);
                 //FeatureSelectionConfigurator.For(BasicFeatSelectionGuid).AddToFeatures(FeatName).Configure();
 
                 #region testing non BlueprintCore

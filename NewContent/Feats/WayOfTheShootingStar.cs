@@ -50,7 +50,7 @@ namespace WraithMods.NewContent.Feats
                 BlueprintWeaponTypeReference starknifeType = ResourcesLibrary.TryGetBlueprint<BlueprintWeaponType>(starknifeGUID).ToReference<BlueprintWeaponTypeReference>();
                 string desnaGUID = "2c0a3b9971327ba4d9d85354d16998c1";
 
-                FeatureConfigurator.New(wayOfTheShootingStarFeatName, wayOfTheShootingStarFeatGuid)
+                var wayOfTheShootingStar = FeatureConfigurator.New(wayOfTheShootingStarFeatName, wayOfTheShootingStarFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(wayOfTheShootingStarDisplayNameKey, wayOfTheShootingStarDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(wayOfTheShootingStarDescriptionKey, wayOfTheShootingStarDescription))
                     .AddFeatureTagsComponent(FeatureTag.Attack)
@@ -74,8 +74,8 @@ namespace WraithMods.NewContent.Feats
                     .Configure();
 
                 if (Main.Settings.useWayOfTheShootingStar == false) { return; }
-                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(wayOfTheShootingStarFeatGuid));
-                FeatureSelectionConfigurator.For(BardTalentSelection).AddToAllFeatures(wayOfTheShootingStarFeatName).Configure();
+                Tools.AddAsFeat(wayOfTheShootingStar);
+                FeatureSelectionConfigurator.For(BardTalentSelection).AddToAllFeatures(wayOfTheShootingStar).Configure();
             }
         }
     }

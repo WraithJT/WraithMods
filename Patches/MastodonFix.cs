@@ -1,5 +1,7 @@
 ﻿using BlueprintCore.Blueprints.Configurators;
 using HarmonyLib;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
 using WraithMods.Utilities;
@@ -39,12 +41,13 @@ namespace WraithMods.Patches
                 //string animalCompanionUnitMammoth_Medium = "03142402362d4afca8252fced7e1258c";
                 string slam1d6 = "767e6932882a99c4b8ca95c88d823137";
 
+                //var slam1d6 = ResourcesLibrary.TryGetBlueprint<BlueprintItemWeapon>("767e6932882a99c4b8ca95c88d823137");
 
                 //var slam1d6_component = ResourcesLibrary.TryGetBlueprint<BlueprintItemWeapon>(slam1d6);
                 //var mastodon = ResourcesLibrary.TryGetBlueprint<BlueprintUnit>("1452fb3e0e3e2f6488bee09050097b6f");
                 //UnitConfigurator.For(animalCompanionUnitMammoth).RemoveComponents(slam1d6_component).Configure();
 
-                UnitConfigurator.For(animalCompanionUnitMammoth).AddAdditionalLimb(slam1d6).Configure();
+                UnitConfigurator.For(animalCompanionUnitMammoth).AddAdditionalLimb(weapon: slam1d6).Configure();
 
             }
         }

@@ -65,7 +65,7 @@ namespace WraithMods.NewContent.Feats
                 string shelynGUID = "b382afa31e4287644b77a8b30ed4aa0b";
                 string weaponFocusGUID = "1e1f627d26ad36f43bbd26cc2bf8ac7e";
 
-                FeatureConfigurator.New(bladedBrushFeatName, bladedBrushFeatGuid)
+                var bladedBrushFeat = FeatureConfigurator.New(bladedBrushFeatName, bladedBrushFeatGuid)
                     .SetDisplayName(LocalizationTool.CreateString(bladedBrushDisplayNameKey, bladedBrushDisplayName, false))
                     .SetDescription(LocalizationTool.CreateString(bladedBrushDescriptionKey, bladedBrushDescription))
                     .AddFeatureTagsComponent(FeatureTag.Attack)
@@ -104,8 +104,8 @@ namespace WraithMods.NewContent.Feats
                     .Configure();
 
                 if (Main.Settings.useBladedBrush == false) { return; }
-                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(bladedBrushFeatGuid));
-                Tools.AddAsFeat(ResourcesLibrary.TryGetBlueprint<BlueprintFeature>(sgbladedBrushFeatGuid));
+                Tools.AddAsFeat(bladedBrushFeat);
+                Tools.AddAsFeat(sgBladedBrush);
             }
         }
     }
