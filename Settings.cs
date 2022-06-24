@@ -20,6 +20,7 @@ namespace WraithMods
         public bool useExtraMythicFeat = true;
         public bool useCovenantFix = true;
         public bool usePlaguedBearFix = true;
+        public bool useShieldedMage = true;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {

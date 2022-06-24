@@ -74,6 +74,10 @@ namespace WraithMods
                 "Adds the Demon Hunter feat",
                 ref Settings.useDemonHunter);
 
+            AddGUIOption("Shielded Mage Feat",
+                "Adds the Shielded Mage feat",
+                ref Settings.useShieldedMage);
+
             //AddGUIOption("Ravener Hunter Archetype",
             //    "Adds the Ravener Hunter Inquisitor Archetype",
             //    ref Settings.useRavenerHunter);

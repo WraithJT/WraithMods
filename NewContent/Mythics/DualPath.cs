@@ -102,7 +102,7 @@ namespace WraithMods.NewContent.Mythics
                 }));
 
                 if (Main.Settings.useDualPath == false) { return; }
-                AddPrereqsToFirstAscensions();
+                //AddPrereqsToFirstAscensions();
                 FeatureSelectionConfigurator.For(MythicAbilitySelection).AddToAllFeatures(FeatName).Configure();
                 FeatureSelectionConfigurator.For(ExtraMythicAbilityMythicFeat).AddToAllFeatures(FeatName).Configure();
             }

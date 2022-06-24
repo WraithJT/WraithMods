@@ -110,7 +110,7 @@ namespace WraithMods.NewContent.Feats
                             "332c43d3f25fb9a429a42067142c41d5",         // WarpriestShieldbearerChannelEnergyFeature
                             "5aebdef7644a74e4d8c0d3cd8909de2b",         // WarpriestShieldbearerChannelNegativeFeature
                             "b423fbf947bc51344bac21752c47471c",         // HexChannelerChannelPositiveFeature
-                            "7c8d5e2ab326fdb4cabafc1c84a5c8e2",         // HexChannelerChannelSelection
+                            "7c8d5e2ab326fdb4cabafc1c84a5c8e2",         // HexChannelerChannelNegativeFeature
                             "e7237c71cb830364ba2b3eb0a0a53272",         // PurifierSacredScourgeFeature
                             "295dff380fb8ed743bd5c76a30a49a46"          // LichChannelNegativeFeature    
                         },
